@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2020_07_10_041718) do
   create_table "pages", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
+    t.string "path"
     t.integer "page_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

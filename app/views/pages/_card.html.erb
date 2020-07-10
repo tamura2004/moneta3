@@ -3,7 +3,7 @@
     <div class="card-body">
       <h2 class="card-title"><%= card.title %></h2>
       <p class="card-text"><%= card.description %></p>
-      <%= link_to "お手続き", page_path(card), class: "btn btn-secondary" %>
+      <%= link_to "お手続き", card.path || page_path(card), class: "btn btn-secondary" %>
     </div>
   </div>
 </div>
