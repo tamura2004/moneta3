@@ -15,17 +15,26 @@
 
 <body>
   <nav class="navbar navbar-dark fixed-top bg-dark">
-    <a href="/dev" class="navbar-brand">Home</a>
+    <a href="/dev" class="navbar-brand">
+      <i class="fas fa-money-check-alt"></i>
+    </a>
   </nav>
-  <section class="starter">
+  <main role="main">
     <div class="container">
       <div class="jumbotron">
-        <h1 class="display-4"><%= @title || "タイトル" %></h1>
-        <p class="lead">ヒント：<%= @hint || "キャッチフレーズ" %></p>
+        <div class="row">
+          <div class="col-md-8">
+            <h1 class="display-4"><%= @page.title || "タイトル" %></h1>
+            <p class="lead"><%= @page.description || "キャッチフレーズ" %></p>
+          </div>
+          <div class="col-md-4">
+            <%= image_tag "logo_mo.png", size: "150" %>
+          </div>
+        </div>
       </div>
       <%= yield %>
     </div>
-  </section>
+  </main>
 </body>
 
 </html>
