@@ -1,0 +1,7 @@
+.col-md-4
+  .card.h-100
+    .card-body
+      h2.card-title = card.title
+      p.card-text = card.description
+      - path = card.path || page_path(card)
+      = link_to "お手続きへ", path, class: "btn btn-secondary"

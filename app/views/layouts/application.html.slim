@@ -1,0 +1,29 @@
+doctype html
+html[lang="jp"]
+  head
+    title
+      | Moneta
+    meta[charset="utf-8"]
+    meta[name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"]
+    meta[name="theme-color" content="#000000"]
+    meta[http-equiv="X-UA-Compatible" content="IE=edge"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    nav.navbar.navbar-dark.fixed-top.bg-dark
+      a.navbar-brand[href="/"]
+        i.fas.fa-money-check-alt
+    main[role="main"]
+      .container
+        .jumbotron
+          .row
+            .col-md-8
+              h1.display-4
+                = @page.title || "タイトル"
+              p.lead
+                = @page.description || "キャッチフレーズ"
+            .col-md-4
+              = image_tag "logo_mo.png", size: "150"
+        = yield
