@@ -1,5 +1,8 @@
 = form_with model: @account, local: true do |f|
   .form-group
+    = f.label "支店"
+    = f.collection_select :branch_id, @branches, :id, :name, class: "form-control"
+  .form-group
     = f.label "取引金額"
     = f.number_field :amount, class: "form-control"
   .form-group

@@ -21,6 +21,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user)
-      .permit(:id_name, :masked_password, :kanji_name, :kana_name, :credit_number)
+      .permit(:id_name, :masked_password, :name, :kana_name, :credit_number)
   end
 end

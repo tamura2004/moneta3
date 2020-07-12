@@ -7,6 +7,7 @@ class CreateAccounts < ActiveRecord::Migration[6.0]
       t.datetime :start_time
       t.datetime :end_time
 
+      t.references :branch, forengn_key: true
       t.references :user, forengn_key: true
       t.timestamps
     end

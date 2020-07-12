@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     @user = User.find_by(id_name: params[:id_name])
     if @user
       cookies["id_name"] = @user.id_name
-      cookies["kanji_name"] = @user.kanji_name
+      cookies["name"] = @user.name
       redirect_to page_path(1)
     else
       render :new
@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 
   def destroy
     cookies.delete("id_name")
-    cookies.delete("kanji_name")
+    cookies.delete("name")
     redirect_to page_path(1)
   end
 end

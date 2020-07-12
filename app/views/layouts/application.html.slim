@@ -17,8 +17,8 @@ html[lang="jp"]
     nav.navbar.navbar-dark.fixed-top.bg-dark
       a.navbar-brand[href="/"]
         i.fas.fa-money-check-alt
-      - if cookies["kanji_name"]
-        = link_to cookies["kanji_name"], session_path(1), method: :delete, class: "nav-link btn btn-dark"
+      - if cookies["name"]
+        = link_to cookies["name"] + "様", session_path(1), method: :delete, class: "nav-link btn btn-dark"
       - else
         = link_to "Login", new_session_path, class: "nav-link btn btn-dark"
     main[role="main"]

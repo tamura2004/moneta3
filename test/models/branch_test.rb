@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  kana_name  :string
-#  kanji_name :string           not null
+#  name       :string           not null
 #  number     :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

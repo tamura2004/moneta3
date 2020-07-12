@@ -18,15 +18,17 @@ ActiveRecord::Schema.define(version: 2020_07_12_092131) do
     t.integer "amount", null: false
     t.datetime "start_time"
     t.datetime "end_time"
+    t.integer "branch_id"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["branch_id"], name: "index_accounts_on_branch_id"
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
   create_table "banks", force: :cascade do |t|
     t.integer "number", null: false
-    t.string "kanji_name", null: false
+    t.string "name", null: false
     t.string "kana_name"
     t.boolean "myself", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -35,7 +37,7 @@ ActiveRecord::Schema.define(version: 2020_07_12_092131) do
 
   create_table "branches", force: :cascade do |t|
     t.integer "number", null: false
-    t.string "kanji_name", null: false
+    t.string "name", null: false
     t.string "kana_name"
     t.integer "bank_id"
     t.datetime "created_at", precision: 6, null: false
@@ -63,7 +65,7 @@ ActiveRecord::Schema.define(version: 2020_07_12_092131) do
 
   create_table "users", force: :cascade do |t|
     t.string "id_name"
-    t.string "kanji_name"
+    t.string "name"
     t.string "kana_name"
     t.integer "masked_password"
     t.string "credit_number"

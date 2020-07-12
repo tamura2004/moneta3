@@ -2,6 +2,7 @@ table.table
   thead
     tr
       th[scope="col"] #
+      th[scope="col"] 支店名
       th[scope="col"] 商品名
       th[scope="col"] 残高
       th[scope="col"] 名義人
@@ -9,6 +10,7 @@ table.table
     - @accounts.each do |account|
       tr
         th[scope="row"] = account.id
+        th[scope="row"] = account.branch&.name
         th[scope="row"] = account.name
         th[scope="row"] = account.amount
         th[scope="row"] = account.user_id_name

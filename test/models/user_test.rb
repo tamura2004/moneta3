@@ -6,8 +6,8 @@
 #  credit_number   :string
 #  id_name         :string
 #  kana_name       :string
-#  kanji_name      :string
 #  masked_password :integer
+#  name            :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
