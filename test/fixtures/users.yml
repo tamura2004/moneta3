@@ -1,0 +1,27 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  credit_number   :string
+#  id_name         :string
+#  kana_name       :string
+#  kanji_name      :string
+#  masked_password :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
+one:
+  id_name: MyString
+  kanji_name: MyString
+  kana_name: MyString
+  masked_password: MyString
+  credit: MyString
+
+two:
+  id_name: MyString
+  kanji_name: MyString
+  kana_name: MyString
+  masked_password: MyString
+  credit: MyString

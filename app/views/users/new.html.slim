@@ -1,0 +1,17 @@
+= form_with model: @user, local: true do |f|
+  .form-group
+    = f.label "ユーザーID"
+    = f.text_field :id_name, class: "form-control"
+  .form-group
+    = f.label "パスワード"
+    = f.text_field :masked_password, class: "form-control"
+  .form-group
+    = f.label "漢字氏名"
+    = f.text_field :kanji_name, class: "form-control"
+  .form-group
+    = f.label "かな氏名"
+    = f.text_field :kana_name, class: "form-control"
+  .form-group
+    = f.label "クレジットカード番号"
+    = f.text_field :credit_number, class: "form-control"
+  = f.submit "登録する", class: "btn btn-primary"

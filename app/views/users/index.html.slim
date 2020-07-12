@@ -1,0 +1,18 @@
+table.table
+  thead
+    tr
+      th[scope="col"] #
+      th[scope="col"] id
+      th[scope="col"] 漢字氏名
+      th[scope="col"] かな氏名
+      th[scope="col"] マスク化パスワード
+      th[scope="col"] クレジットカード番号
+  tbody
+    - @users.each do |user|
+      tr
+        th[scope="row"] = user.id
+        th[scope="row"] = user.id_name
+        th[scope="row"] = user.kanji_name
+        th[scope="row"] = user.kana_name
+        th[scope="row"] = user.masked_password
+        th[scope="row"] = user.credit_number

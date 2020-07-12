@@ -11,19 +11,26 @@ html[lang="jp"]
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    / = javascript_pack_tag "hello_vue"
+    = favicon_link_tag "favicon.ico"
   body
     nav.navbar.navbar-dark.fixed-top.bg-dark
       a.navbar-brand[href="/"]
         i.fas.fa-money-check-alt
+      - if cookies["kanji_name"]
+        = link_to cookies["kanji_name"], session_path(1), method: :delete, class: "nav-link btn btn-dark"
+      - else
+        = link_to "Login", new_session_path, class: "nav-link btn btn-dark"
     main[role="main"]
       .container
         .jumbotron
           .row
             .col-md-8
-              h1.display-4
-                = @page.title || "タイトル"
-              p.lead
-                = @page.description || "キャッチフレーズ"
+              h1.display-4 = @page&.title || "タイトル"
+              p.lead = @page&.description
+              - if @page&.title == "ログイン"
+                hr
+                = link_to "新規登録", new_user_path, class: "btn btn-success"
             .col-md-4
               = image_tag "logo_mo.png", size: "150"
         = yield
