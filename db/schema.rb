@@ -10,21 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_12_092131) do
+ActiveRecord::Schema.define(version: 2020_07_13_121336) do
 
   create_table "accounts", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "user_id_name", null: false
     t.string "number", null: false
     t.integer "amount", null: false
-    t.boolean "is_debit", default: false
     t.datetime "start_time"
     t.datetime "end_time"
+    t.integer "product_id"
     t.integer "branch_id"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["branch_id"], name: "index_accounts_on_branch_id"
+    t.index ["product_id"], name: "index_accounts_on_product_id"
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
@@ -55,6 +54,15 @@ ActiveRecord::Schema.define(version: 2020_07_12_092131) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["page_id"], name: "index_pages_on_page_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "currency", default: "JPY"
+    t.decimal "rate"
+    t.boolean "is_debit", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "statements", force: :cascade do |t|

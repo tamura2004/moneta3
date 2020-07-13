@@ -1,7 +1,7 @@
 .jumbotron
   h1 残高一覧
 
-- @deposit = @accounts.where(is_debit: false)
+- @deposit = @accounts.joins(:product).where("not products.is_debit")
 - sum = 0
 h2 預金
 table.table
@@ -26,7 +26,7 @@ table.table
       th.col-3[scope="row"] 合計
       th.col-3[scope="row"] = sum
 
-- @debit = @accounts.where(is_debit: true)
+- @debit = @accounts.joins(:product).where("products.is_debit")
 - sum = 0
 h2 お借入れ
 table.table

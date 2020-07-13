@@ -34,7 +34,7 @@ pages = {
     {
       title: "資産運用",
       pages: [
-        { title: "外貨預金", path: "/accounts/new?name=外貨預金" },
+        { title: "外貨預金", path: "/accounts/new?name=米ドル預金" },
         { title: "投資信託", path: "/accounts/new?name=投資信託" },
         { title: "国債", path: "/accounts/new?name=国債" },
         { title: "スピードくじ", path: "/accounts/new?name=スピードくじ" },

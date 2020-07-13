@@ -23,7 +23,7 @@ names.reverse.each_slice(3) do |arr|
   Branch.seed do |s|
     s.id = $id
     s.number = 1
-    s.name = "本店"
+    s.name = "本店営業部"
     s.kana_name = "ほんてん"
     s.bank_id = $bank_id
   end

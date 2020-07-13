@@ -8,6 +8,8 @@ users = [
   { id_name: "aoki", name: "青木六郎", kana_name: "あおきろくろう" },
 ]
 
+credit_card = Product.find_by(name: "クレジットカード")
+
 users.each_with_index do |user, id|
   credit_number = User.generate_random_credit_number
   User.seed do |s|
@@ -21,12 +23,11 @@ users.each_with_index do |user, id|
 
   Account.seed do |s|
     s.id = id + 1
-    s.name = "クレジットカード"
-    s.user_id_name = user[:id_name]
     s.number = credit_number
-    s.is_debit = true
     s.amount = 0
+    s.user_id = id + 1
     s.branch_id = 2
+    s.product_id = credit_card.id
   end
 end
 

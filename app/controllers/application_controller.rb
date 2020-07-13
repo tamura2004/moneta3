@@ -13,7 +13,8 @@ class ApplicationController < ActionController::Base
   end
 
   def credit_card
-    @credit_card ||= Account.find_by(name: "クレジットカード", user_id_name: current_user&.id_name)
+    return nil unless current_user
+    @credit_card ||= current_user.accounts.joins(:product).find_by("products.name = ?", "クレジットカード")
   end
 
   def authorize

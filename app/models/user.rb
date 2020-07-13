@@ -12,6 +12,8 @@
 #  updated_at      :datetime         not null
 #
 class User < ApplicationRecord
+  has_many :accounts
+  
   def self.generate_random_credit_number
     generate_credit_number(DigitValue.sample(3))
   end

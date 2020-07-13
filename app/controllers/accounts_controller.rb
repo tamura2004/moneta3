@@ -2,8 +2,7 @@ class AccountsController < ApplicationController
   before_action :set_page, only: [:index, :show, :new]
 
   def index
-    @accounts = Account.where(user_id_name: current_user&.id_name)
-    @sum = @accounts.pluck(:amount).sum
+    @accounts = current_user&.accounts
   end
 
   def show
@@ -13,7 +12,8 @@ class AccountsController < ApplicationController
     name = params[:name]
     @page = Page.new(title: name)
     @branches = mybank.branches
-    @account = Account.new(name: name, user_id_name: current_user&.id_name)
+    @product = Product.find_by(name: name)
+    @account = Account.new(product_id: @product.id, user_id: current_user&.id)
   end
   
   def create
@@ -21,7 +21,7 @@ class AccountsController < ApplicationController
 
     credit_card&.withdrow_money(@account.amount)
     credit_card&.save
-    
+
     if @account.save
       redirect_to accounts_url
     else
@@ -37,6 +37,6 @@ class AccountsController < ApplicationController
   end
 
   def accout_param
-    params.require(:account).permit(:name, :amount, :user_id_name, :branch_id)
+    params.require(:account).permit(:amount, :user_id, :branch_id, :product_id)
   end
 end
