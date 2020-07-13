@@ -1,15 +1,16 @@
 class SessionsController < ApplicationController
+  skip_before_action :authorize
+
   def new
     @page = Page.new(title: "ログイン")
-    @session = Session.new
+    @form = SessionForm.new
   end
-
+  
   def create
-    @user = User.find_by(id_name: params[:id_name])
-    if @user
-      cookies["id_name"] = @user.id_name
-      cookies["name"] = @user.name
-      redirect_to page_path(1)
+    @form = SessionForm.new(session_params)
+    if @form.valid?
+      cookies["id_name"] = @form.id_name
+      redirect_to page_url(1), notice: "ようこそ、#{current_user&.name}様"
     else
       render :new
     end
@@ -17,7 +18,13 @@ class SessionsController < ApplicationController
 
   def destroy
     cookies.delete("id_name")
-    cookies.delete("name")
-    redirect_to page_path(1)
+    @user = nil
+    redirect_to page_url(1), notice: "ご利用ありがとうございました"
+  end
+
+  private
+
+  def session_params
+    params.require(:session).permit(:id_name, :password)
   end
 end

@@ -11,4 +11,5 @@
 #  updated_at :datetime         not null
 #
 class Bank < ApplicationRecord
+  has_many :branches
 end

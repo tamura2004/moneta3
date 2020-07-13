@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_action :authorize
+
   def index
     @page = Page.new(title: "ユーザー一覧")
     @users = User.all

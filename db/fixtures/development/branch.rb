@@ -19,7 +19,7 @@ names = [
 $bank_id = 1
 $id = 1
 
-names.shuffle.each_slice(3) do |arr|
+names.reverse.each_slice(3) do |arr|
   Branch.seed do |s|
     s.id = $id
     s.number = 1

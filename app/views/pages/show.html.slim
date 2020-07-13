@@ -1,3 +1,10 @@
+.jumbotron: .row
+  .col-md-8
+    h1.display-4 = @page&.title || "タイトル"
+    p.lead = @page&.description
+  .col-md-4
+    = image_tag "logo_mo.png", size: "150", style: "margin: -100;"
+
 - @pages.each_slice(3) do |cards|
   .row.mb-4
     = render partial: "card", collection: cards

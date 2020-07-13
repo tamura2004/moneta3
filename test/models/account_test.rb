@@ -5,7 +5,9 @@
 #  id           :integer          not null, primary key
 #  amount       :integer          not null
 #  end_time     :datetime
+#  is_debit     :boolean          default(FALSE)
 #  name         :string           not null
+#  number       :string           not null
 #  start_time   :datetime
 #  user_id_name :string           not null
 #  created_at   :datetime         not null

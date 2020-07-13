@@ -9,8 +9,8 @@ Rails.application.routes.draw do
   resources :transfers
   resources :users
 
-  get "/login", to: "pages#login"
-  get "/signin", to: "users#new"
+  get "/signin", to: "users#new", as: "signin"
+  get "/login", to: "sessions#new", as: "login"
 
   namespace :api, { format: "json" } do
     namespace :v1 do

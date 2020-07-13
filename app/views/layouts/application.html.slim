@@ -17,20 +17,15 @@ html[lang="jp"]
     nav.navbar.navbar-dark.fixed-top.bg-dark
       a.navbar-brand[href="/"]
         i.fas.fa-money-check-alt
-      - if cookies["name"]
-        = link_to cookies["name"] + "様", session_path(1), method: :delete, class: "nav-link btn btn-dark"
+        span.mx-1 もねた銀行
+      - if current_user
+        = link_to current_user&.name + "様", session_path(1), method: :delete, class: "nav-link btn btn-dark"
       - else
         = link_to "Login", new_session_path, class: "nav-link btn btn-dark"
     main[role="main"]
       .container
-        .jumbotron
-          .row
-            .col-md-8
-              h1.display-4 = @page&.title || "タイトル"
-              p.lead = @page&.description
-              - if @page&.title == "ログイン"
-                hr
-                = link_to "新規登録", new_user_path, class: "btn btn-success"
-            .col-md-4
-              = image_tag "logo_mo.png", size: "150"
+        - if flash.notice
+          .alert.alert-success[role="alert"] = flash.notice
+        - if flash.alert
+          .alert.alert-danger[role="alert"] = flash.alert
         = yield

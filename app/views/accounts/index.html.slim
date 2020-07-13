@@ -1,16 +1,52 @@
+.jumbotron
+  h1 残高一覧
+
+- @deposit = @accounts.where(is_debit: false)
+- sum = 0
+h2 預金
 table.table
   thead
-    tr
-      th[scope="col"] #
-      th[scope="col"] 支店名
-      th[scope="col"] 商品名
-      th[scope="col"] 残高
-      th[scope="col"] 名義人
+    tr.d-flex
+      th.col-3[scope="col"] 支店名
+      th.col-3[scope="col"] 商品名
+      th.col-3[scope="col"] 口座番号
+      th.col-3[scope="col"] 預金残高
   tbody
-    - @accounts.each do |account|
-      tr
-        th[scope="row"] = account.id
-        th[scope="row"] = account.branch&.name
-        th[scope="row"] = account.name
-        th[scope="row"] = account.amount
-        th[scope="row"] = account.user_id_name
+    - @deposit.each do |account|
+      - sum += account.amount
+      tr.d-flex
+        td.col-3[scope="row"] = account.branch&.name
+        td.col-3[scope="row"] = account.name
+        td.col-3[scope="row"] = account.number
+        td.col-3[scope="row"] = account.amount
+  tbody
+    tr.d-flex
+      th.col-3[scope="row"]
+      th.col-3[scope="row"]
+      th.col-3[scope="row"] 合計
+      th.col-3[scope="row"] = sum
+
+- @debit = @accounts.where(is_debit: true)
+- sum = 0
+h2 お借入れ
+table.table
+  thead
+    tr.d-flex
+      th.col-3[scope="col"] 支店名
+      th.col-3[scope="col"] 商品名
+      th.col-3[scope="col"] 口座番号
+      th.col-3[scope="col"] お借入残高
+  tbody
+    - @debit.each do |account|
+      - sum += account.amount
+      tr.d-flex
+        td.col-3[scope="row"] = account.branch&.name
+        td.col-3[scope="row"] = account.name
+        td.col-3[scope="row"] = account.number
+        td.col-3[scope="row"] = -account.amount
+  tbody
+    tr.d-flex
+      th.col-3[scope="row"]
+      th.col-3[scope="row"]
+      th.col-3[scope="row"] 合計
+      th.col-3[scope="row"] = -sum

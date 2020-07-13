@@ -13,9 +13,11 @@
 ActiveRecord::Schema.define(version: 2020_07_12_092131) do
 
   create_table "accounts", force: :cascade do |t|
-    t.string "user_id_name", null: false
     t.string "name", null: false
+    t.string "user_id_name", null: false
+    t.string "number", null: false
     t.integer "amount", null: false
+    t.boolean "is_debit", default: false
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer "branch_id"

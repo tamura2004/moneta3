@@ -1,12 +1,17 @@
-= form_with model: @account, local: true do |f|
-  .form-group
-    = f.label "支店"
-    = f.collection_select :branch_id, @branches, :id, :name, class: "form-control"
-  .form-group
-    = f.label "取引金額"
-    = f.number_field :amount, class: "form-control"
-  .form-group
-    = f.hidden_field :name, class: "form-control"
-  .form-group
-    = f.hidden_field :user_id_name, class: "form-control"
-  = f.submit "登録する", class: "btn btn-primary"
+/ - msg = @accout.errors.messages
+.row: .col-md-6.offset-md-3
+  .jumbotron
+    h1 = "#{@account.name}開設"
+    hr.my-8
+    = form_with model: @account, local: true do |f|
+      .form-group
+        = f.label "支店"
+        = f.select :branch_id, @branches.pluck(:name, :id), { selected: 1 }, class: "form-control" 
+      .form-group
+        = f.label "取引金額"
+        = f.number_field :amount, class: "form-control"
+      .form-group
+        = f.hidden_field :name, class: "form-control"
+      .form-group
+        = f.hidden_field :user_id_name, class: "form-control"
+      = f.submit "登録する", class: "btn btn-primary"
