@@ -5,6 +5,8 @@ class CreateProducts < ActiveRecord::Migration[6.0]
       t.string :currency, default: "JPY"
       t.decimal :rate
       t.boolean :is_debit, default: false
+      t.boolean :is_fixed, default: false
+      t.boolean :is_credit, default: false
 
       t.timestamps
     end

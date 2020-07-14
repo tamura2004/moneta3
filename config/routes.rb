@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  get 'statements/index'
   root to: "pages#show", id: 1
 
-  resources :accounts
+  resources :accounts do
+    resources :statements
+  end
   resources :branches
   resources :pages
   resources :questions

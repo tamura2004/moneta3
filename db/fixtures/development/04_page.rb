@@ -3,37 +3,20 @@ pages = {
   description: "お取引をお選びください",
   pages: [
     {
-      title: "口座開設",
-      pages: [
-        { title: "普通預金", path: "/accounts/new?name=普通預金", },
-        { title: "定期預金", path: "/accounts/new?name=定期預金", },
-        { title: "積立定期預金", path: "/accounts/new?name=積立定期預金", },
-      ]
-    },
-    {
-      title: "残高照会",
-      description: "保有口座の残高一覧になります",
+      title: "残高・入出金明細",
+      description: "ご利用口座の残高一覧です",
       path: "/accounts",
     },
     {
-      title: "資金移動",
-      description: "お預入れやお引き出しを行います",
-      pages: [
-        {
-          title: "入出金",
-          description: "電子マネーとの入出金ができます",
-          path: "/transfers/new?name=1"
-        },
-        { 
-          title: "振込",
-          description: "資金移動を行います",
-          path: "/transfers/new?name=2"
-        },
-      ]
+      title: "振込",
+      description: "ご指定先への送金を行います",
+      path: "/transfers/new",
     },
     {
-      title: "資産運用",
+      title: "お預入・お引出",
       pages: [
+        { title: "普通預金", path: "/accounts/new?name=普通預金", },
+        { title: "定期預金", path: "/accounts/new?name=定期預金", },
         { title: "外貨預金", path: "/accounts/new?name=米ドル預金" },
         { title: "投資信託", path: "/accounts/new?name=投資信託" },
         { title: "国債", path: "/accounts/new?name=国債" },
@@ -41,7 +24,7 @@ pages = {
       ]
     },
     {
-      title: "お借入",
+      title: "お借入・ご返済",
       pages: [
         { title: "カードローン", path: "/accounts/new?name=カードローン" },
         { title: "住宅ローン", path: "/accounts/new?name=住宅ローン" },
@@ -60,20 +43,13 @@ pages = {
           ]
         },
         {
-          title: "お申込み",
+          title: "各種変更・手続き",
           path: "/questions/1",
           pages: [
             { title: "変更・解約", path: "/questions/2" },
             { title: "認証", path: "/questions/3" },
             { title: "振込等手続", path: "/questions/4" },
             { title: "主要なサービス", path: "/questions/5" },
-            {
-              title: "お手続き",
-              pages: [
-                { title: "ログイン", path: "/login" },
-                { title: "サインイン", path: "/signin" },
-              ]
-            },
           ]
         }
       ]

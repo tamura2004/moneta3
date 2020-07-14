@@ -9,25 +9,25 @@ users = [
 ]
 
 credit_card = Product.find_by(name: "クレジットカード")
+branch = Branch.find_by(name: "もねたカード")
 
 users.each_with_index do |user, id|
   credit_number = User.generate_random_credit_number
+  Account.seed do |s|
+    s.id = id + 1
+    s.number = credit_number
+    s.amount = 0
+    s.user_id = id + 1
+    s.branch_id = branch.id
+    s.product_id = credit_card.id
+  end
+
   User.seed do |s|
     s.id = id + 1
     s.id_name = user[:id_name]
     s.name = user[:name]
     s.kana_name = user[:kana_name]
     s.masked_password = 0
-    s.credit_number = credit_number
-  end
-
-  Account.seed do |s|
-    s.id = id + 1
-    s.number = credit_number
-    s.amount = 0
-    s.user_id = id + 1
-    s.branch_id = 2
-    s.product_id = credit_card.id
+    s.account_id = id + 1
   end
 end
-

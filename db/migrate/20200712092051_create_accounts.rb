@@ -3,12 +3,13 @@ class CreateAccounts < ActiveRecord::Migration[6.0]
     create_table :accounts do |t|
       t.string :number, null: false
       t.integer :amount, null: false
-      t.datetime :start_time
-      t.datetime :end_time
+      t.date :start_date
+      t.date :end_date
 
       t.references :product, forengn_key: true
-      t.references :branch, forengn_key: true
-      t.references :user, forengn_key: true
+      t.references :branch
+      t.references :user
+      t.references :account
       t.timestamps
     end
   end

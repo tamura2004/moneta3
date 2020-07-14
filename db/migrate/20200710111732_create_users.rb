@@ -5,8 +5,8 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :kana_name
       t.integer :masked_password
-      t.string :credit_number
 
+      t.references :account, foreign_key: true
       t.timestamps
     end
   end

@@ -2,63 +2,9 @@
   h1 残高一覧
 
 - @deposit = @accounts.joins(:product).where("not products.is_debit")
-- sum = 0
-h2 預金
-table.table
-  thead
-    tr.d-flex
-      th.col-2[scope="col"] 支店名
-      th.col-2[scope="col"] 商品名
-      th.col-2[scope="col"] 口座番号
-      th.col-2[scope="col"] 預金残高
-      th.col-2[scope="col"] 金利
-      th.col-2[scope="col"] 満期日
-  tbody
-    - @deposit.each do |account|
-      - sum += account.amount
-      tr.d-flex
-        td.col-2[scope="row"] = account.branch&.name
-        td.col-2[scope="row"] = account.name
-        td.col-2[scope="row"] = account.number
-        td.col-2[scope="row"] = account.amount
-        td.col-2[scope="row"] = "#{account.rate}%"
-        td.col-2[scope="row"] = account.end_time
-  tbody
-    tr.d-flex
-      th.col-2[scope="row"]
-      th.col-2[scope="row"]
-      th.col-2[scope="row"] 合計
-      th.col-2[scope="row"] = sum
-      th.col-2[scope="row"]
-      th.col-2[scope="row"]
+h2 預入
+= render partial: "table", locals: { accounts: @deposit }
 
 - @debit = @accounts.joins(:product).where("products.is_debit")
-- sum = 0
-h2 お借入れ
-table.table
-  thead
-    tr.d-flex
-      th.col-2[scope="col"] 支店名
-      th.col-2[scope="col"] 商品名
-      th.col-2[scope="col"] 口座番号
-      th.col-2[scope="col"] お借入残高
-      th.col-2[scope="col"] 金利
-      th.col-2[scope="col"] ご返済期限
-  tbody
-    - @debit.each do |account|
-      - sum += account.amount
-      tr.d-flex
-        td.col-2[scope="row"] = account.branch&.name
-        td.col-2[scope="row"] = account.name
-        td.col-2[scope="row"] = account.number
-        td.col-2[scope="row"] = -account.amount
-        td.col-2[scope="row"] = "#{account.rate}%"
-        td.col-2[scope="row"] = account.end_time
-  tbody
-    tr.d-flex
-      th.col-2[scope="row"]
-      th.col-2[scope="row"]
-      th.col-2[scope="row"] 合計
-      th.col-2[scope="row"] = -sum
-      th.col-2[scope="row"]
-      th.col-2[scope="row"]
+h2 借入
+= render partial: "table", locals: { accounts: @debit }

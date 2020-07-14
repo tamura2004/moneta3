@@ -15,13 +15,15 @@ ActiveRecord::Schema.define(version: 2020_07_13_121336) do
   create_table "accounts", force: :cascade do |t|
     t.string "number", null: false
     t.integer "amount", null: false
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.date "start_date"
+    t.date "end_date"
     t.integer "product_id"
     t.integer "branch_id"
     t.integer "user_id"
+    t.integer "account_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_accounts_on_account_id"
     t.index ["branch_id"], name: "index_accounts_on_branch_id"
     t.index ["product_id"], name: "index_accounts_on_product_id"
     t.index ["user_id"], name: "index_accounts_on_user_id"
@@ -61,16 +63,19 @@ ActiveRecord::Schema.define(version: 2020_07_13_121336) do
     t.string "currency", default: "JPY"
     t.decimal "rate"
     t.boolean "is_debit", default: false
+    t.boolean "is_fixed", default: false
+    t.boolean "is_credit", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "statements", force: :cascade do |t|
-    t.string "user_id_name", null: false
-    t.string "instrument_name", null: false
     t.integer "amount", null: false
+    t.text "memo"
+    t.integer "account_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_statements_on_account_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -78,11 +83,14 @@ ActiveRecord::Schema.define(version: 2020_07_13_121336) do
     t.string "name"
     t.string "kana_name"
     t.integer "masked_password"
-    t.string "credit_number"
+    t.integer "account_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_users_on_account_id"
   end
 
   add_foreign_key "branches", "banks"
   add_foreign_key "pages", "pages"
+  add_foreign_key "statements", "accounts"
+  add_foreign_key "users", "accounts"
 end

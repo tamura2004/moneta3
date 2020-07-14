@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   def credit_card
     return nil unless current_user
-    @credit_card ||= current_user.accounts.joins(:product).find_by("products.name = ?", "クレジットカード")
+    @credit_card ||= current_user.account
   end
 
   def authorize
