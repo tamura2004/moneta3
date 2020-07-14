@@ -1,5 +1,5 @@
 products = [
-  { name: "普通預金", currency: "JPY", rate: "0.1", is_debit: false },
+  { name: "普通預金", currency: "JPY", rate: "0.0", is_debit: false },
   { name: "定期預金", currency: "JPY", rate: "1.0", is_debit: false },
   { name: "積立定期預金", currency: "JPY", rate: "1.0", is_debit: false },
   { name: "米ドル預金", currency: "USD", rate: "2.0", is_debit: false },

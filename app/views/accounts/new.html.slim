@@ -6,10 +6,16 @@
     = form_with model: @account, local: true do |f|
       .form-group
         = f.label "支店"
-        = f.select :branch_id, @branches.pluck(:name, :id), { selected: 1 }, class: "form-control" 
+        = f.select :branch_id, @branches.pluck(:name, :id), { selected: 1 }, class: "form-control"
       .form-group
         = f.label "取引金額"
         = f.number_field :amount, class: "form-control"
+      .form-group
+        = f.label "開始日"
+        = f.datetime_field :start_time, class: "form-control"
+      .form-group
+        = f.label "満期日"
+        = f.datetime_field :end_time, class: "form-control"
       .form-group
         = f.hidden_field :product_id, class: "form-control"
       .form-group

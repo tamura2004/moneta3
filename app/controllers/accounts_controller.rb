@@ -15,7 +15,7 @@ class AccountsController < ApplicationController
     @product = Product.find_by(name: name)
     @account = Account.new(product_id: @product.id, user_id: current_user&.id)
   end
-  
+
   def create
     @account = Account.new(accout_param)
 
@@ -37,6 +37,6 @@ class AccountsController < ApplicationController
   end
 
   def accout_param
-    params.require(:account).permit(:amount, :user_id, :branch_id, :product_id)
+    params.require(:account).permit(:amount, :start_time, :end_time, :user_id, :branch_id, :product_id)
   end
 end

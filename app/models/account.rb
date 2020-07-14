@@ -24,7 +24,7 @@ class Account < ApplicationRecord
   belongs_to :user
   belongs_to :product
 
-  delegate :name, :is_debit, to: :product
+  delegate :name, :is_debit, :rate, :currency, to: :product
 
   before_validation :assign_number
 

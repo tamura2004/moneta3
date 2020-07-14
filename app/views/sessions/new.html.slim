@@ -7,7 +7,7 @@
       .form-group
         = f.label "ユーザーID"
         = f.text_field :id_name, class: "form-control #{'is-invalid' if msg[:id_name].first}"
-        .invalid-feedback[style="display: block;"] = msg[:id_name].first
+        .invalid-feedback = msg[:id_name].first
       .form-group
         = f.label "パスワード"
         = f.text_field :password, class: "form-control #{'is-invalid' if msg[:password].first}"

@@ -17,7 +17,7 @@ class DigitValue
     if a == 1
       new(rand(0..max), n)
     else
-      Array.new(n){ new(rand(0..max), n) }
+      Array.new(a){ new(rand(0..max), n) }
     end
   end
 
@@ -34,5 +34,3 @@ class DigitValue
     to_s.to_i
   end
 end
-
-
