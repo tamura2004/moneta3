@@ -1,4 +1,9 @@
-h1
-  | Transfers#new
-p
-  | Find me in app/views/transfers/new.html.erb
+.row: .col-md-6.offset-md-3
+  .jumbotron
+    h1 = "振込元口座をお選び下さい"
+    hr.my-8
+    = form_with model: @form, scope: :transfer, url: "/transfer/select_bank", local: true do |f|
+      .form-group
+        = f.label "決済口座"
+        = f.select :from_id, @accounts.map{|r|[r.fullname, r.id]}, {}, class: "form-control"
+      = f.submit "登録する", class: "btn btn-primary"

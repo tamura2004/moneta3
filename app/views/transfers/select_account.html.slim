@@ -1,0 +1,18 @@
+.row: .col-md-6.offset-md-3
+  .jumbotron
+    h1 = "振込先口座番号と振込金額を入力して下さい"
+    hr.my-8
+    = form_with model: @form, scope: :transfer, url: transfers_path, local: true do |f|
+      .form-group
+        = f.hidden_field :from_id, class: "form-control"
+      .form-group
+        = f.hidden_field :bank_id, class: "form-control"
+      .form-group
+        = f.hidden_field :branch_id, class: "form-control"
+      .form-group
+        = f.label "口座番号"
+        = f.text_field :account_number, class: "form-control"
+      .form-group
+        = f.label "振込金額"
+        = f.number_field :amount, class: "form-control"
+      = f.submit "登録する", class: "btn btn-primary"

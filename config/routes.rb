@@ -9,8 +9,16 @@ Rails.application.routes.draw do
   resources :pages
   resources :questions
   resources :sessions
-  resources :transfers
   resources :users
+  resources :transfers
+
+  get "/transfer/select_bank", to: "transfers#select_bank"
+  post "/transfer/select_bank", to: "transfers#select_bank"
+
+  get "/transfer/select_branch", to: "transfers#select_branch"
+  post "/transfer/select_branch", to: "transfers#select_branch"
+
+  post "/transfer/select_account", to: "transfers#select_account"
 
   get "/signin", to: "users#new", as: "signin"
   get "/login", to: "sessions#new", as: "login"
