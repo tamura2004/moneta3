@@ -1,11 +1,32 @@
-.row: .col-md-6.offset-md-3
-  .jumbotron
-    h1 = "振込先銀行をお選び下さい"
-    hr.my-8
-    = form_with model: @form, scope: :transfer, url: "/transfer/select_account", local: true do |f|
-      .form-group
-        = f.hidden_field :from_id, class: "form-control"
-      .form-group
-        = f.label "振込先銀行"
-        = f.select :bank_id, @banks.map{|r|[r.name, r.id]}, {}, class: "form-control"
-      = f.submit "登録する", class: "btn btn-primary"
+.jumbotron
+  h1 = "振込先銀行をお選び下さい"
+
+.row
+ .col-6: .container: .row
+    table.table
+      thead
+        tr.d-flex
+          th.col-4[scope="col"] 金融機関番号
+          th.col-4[scope="col"] 名称
+          th.col-4[scope="col"] 選択
+      tbody
+        - @banks.each_with_index do |bank, i|
+          - next if i.odd?
+          tr.d-flex
+            td.col-4 = "%04d" % bank.number
+            td.col-4 = bank.name
+            td.col-4 = link_to "選択", "/transfers/select_branch?transfer[bank_id]=#{bank.id}", class: "btn btn-sm btn-primary"
+ .col-6: .container: .row
+    table.table
+      thead
+        tr.d-flex
+          th.col-4[scope="col"] 金融機関番号
+          th.col-4[scope="col"] 名称
+          th.col-4[scope="col"] 選択
+      tbody
+        - @banks.each_with_index do |bank, i|
+          - next if i.even?
+          tr.d-flex
+            td.col-4 = "%04d" % bank.number
+            td.col-4 = bank.name
+            td.col-4 = link_to "選択", "/transfers/select_branch?transfer[bank_id]=#{bank.id}", class: "btn btn-sm btn-primary"

@@ -1,9 +1,18 @@
-.row: .col-md-6.offset-md-3
-  .jumbotron
-    h1 = "振込元口座をお選び下さい"
-    hr.my-8
-    = form_with model: @form, scope: :transfer, url: "/transfer/select_bank", local: true do |f|
-      .form-group
-        = f.label "決済口座"
-        = f.select :from_id, @accounts.map{|r|[r.fullname, r.id]}, {}, class: "form-control"
-      = f.submit "登録する", class: "btn btn-primary"
+.jumbotron
+  h1 = "振込元口座をお選び下さい"
+table.table
+  thead
+    tr.d-flex
+      th.col-3[scope="col"] 支店名
+      th.col-3[scope="col"] 商品名
+      th.col-3[scope="col"] 口座番号
+      th.col-2[scope="col"] 残高
+      th.col-1[scope="col"]
+  tbody
+    - @accounts.each do |account|
+      tr.d-flex
+        td.col-3 = account.branch&.name
+        td.col-3 = account.name
+        td.col-3 = account.number
+        td.col-2 = account.amount
+        td.col-1 = link_to "選択", "/transfers/select_bank?transfer[from_id]=#{account.id}", class: "btn btn-sm btn-primary"

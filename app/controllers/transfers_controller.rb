@@ -3,7 +3,7 @@ class TransfersController < ApplicationController
 
   def new
     @form = TransferForm.new
-    @accounts = current_user.accounts
+    @accounts = current_user.accounts.joins(:product).where("not products.is_fixed").where("not products.is_credit")
   end
 
   def select_bank
