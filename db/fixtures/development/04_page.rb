@@ -10,7 +10,7 @@ pages = {
     {
       title: "振込",
       description: "ご指定先への送金を行います",
-      path: "/transfers/new",
+      path: "/transfer/new",
     },
     {
       title: "お預入・お引出",

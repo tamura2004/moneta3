@@ -2,24 +2,30 @@
 table.table
   thead
     tr.d-flex
-      th.col-3[scope="col"] 支店名
+      th.col-2[scope="col"] 支店名
       th.col-3[scope="col"] 商品名
       th.col-3[scope="col"] 口座番号
       th.col-2[scope="col"] 残高
-      th.col-1[scope="col"]
+      th.col-2[scope="col"]
   tbody
     - accounts.each do |account|
       - sum += account.amount
       tr.d-flex
-        td.col-3 = account.branch&.name
+        td.col-2 = account.branch&.name
         td.col-3 = account.name
         td.col-3 = account.number
         td.col-2 = account.amount
-        td.col-1 = link_to "明細", account_statements_path(account), class: "btn btn-sm btn-primary"
+        td.col-2
+          .btn-group.float-right[role="group"]
+            = link_to "明細", account_statements_path(account), class: "btn btn-sm btn-success"
+            = form_with model: @form, scope: :transfer, url: :bank_transfer, local: true do |f|
+              = f.hidden_field :from_id, value: account.id
+              = f.submit "振込", class: "btn btn-sm btn-primary"
+            .btn.btn-sm.btn-danger 解約
   tbody
     tr.d-flex
-      th.col-3
+      th.col-2
       th.col-3
       th.col-3 合計
       th.col-2 = sum
-      th.col-1
+      th.col-2

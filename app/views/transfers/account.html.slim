@@ -2,7 +2,7 @@
   .jumbotron
     h1 = "振込先口座番号と振込金額を入力して下さい"
     hr.my-8
-    = form_with model: @form, scope: :transfer, url: transfers_path, local: true do |f|
+    = form_with model: @form, scope: :transfer, url: :transfer, local: true do |f|
       .form-group
         = f.hidden_field :from_id, class: "form-control"
       .form-group

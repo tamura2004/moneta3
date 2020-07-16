@@ -3,6 +3,7 @@ class AccountsController < ApplicationController
 
   def index
     @accounts = current_user&.accounts
+    @form = TransferForm.new
   end
 
   def show
@@ -19,16 +20,12 @@ class AccountsController < ApplicationController
 
   def create
     @account = Account.new(accout_param)
-
     amount = @account.amount
 
     @from = Account.find(@account.account_id)
-    @from.withdrow_money(amount)
-    @from.save
-
+    @from.withdrow(amount)
 
     if @account.save
-      Statement.create(amount: amount, account_id: @from.id, memo: "引落")
       Statement.create(amount: amount, account_id: @account.id, memo: "新規")
       redirect_to accounts_url
     else

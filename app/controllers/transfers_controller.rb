@@ -3,29 +3,34 @@ class TransfersController < ApplicationController
 
   def new
     @form = TransferForm.new
-    @accounts = current_user.accounts.joins(:product).where("not products.is_fixed").where("not products.is_credit")
+    @accounts = current_user.accounts.settlement
   end
 
-  def select_bank
-    @banks = Bank.all
+  def bank
+    c = (Bank.count + 1) / 2
+    @banks_left = Bank.limit(c)
+    @banks_right = Bank.offset(c)
   end
 
-  def select_branch
+  def branch
     @bank = Bank.find(@form.bank_id)
     @branches = @bank.branches
+    c = (@branches.count + 1) / 2
+    @branches_left = @branches.limit(c)
+    @branches_right = @branches.offset(c)
   end
 
-  def select_account
+  def account
   end
 
   def create
     @from = Account.find(@form.from_id)
     @to = Account.find_by(number: @form.account_number)
-    amount = @form.amount.to_i
-    @from.amount -= amount
-    @to.amount += amount
-    @from.save
-    @to.save
+
+    money = @form.amount.to_i
+    @from.withdrow(money)
+    @to.deposit(money)
+
     redirect_to accounts_url
   end
 

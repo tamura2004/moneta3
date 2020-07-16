@@ -15,4 +15,7 @@ table.table
         td.col-3 = account.name
         td.col-3 = account.number
         td.col-2 = account.amount
-        td.col-1 = link_to "選択", "/transfers/select_bank?transfer[from_id]=#{account.id}", class: "btn btn-sm btn-primary"
+        td.col-1
+          = form_with model: @form, scope: :transfer, url: :bank_transfer, local: true do |f|
+            = f.hidden_field :from_id, value: account.id
+            = f.submit "選択", class: "btn btn-sm btn-primary"

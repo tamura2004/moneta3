@@ -1,0 +1,6 @@
+.jumbotron
+  h1 = "振込先銀行をお選び下さい"
+
+.row
+  = render partial: "bank_index", locals: { form: @form, banks: @banks_left }
+  = render partial: "bank_index", locals: { form: @form, banks: @banks_right }

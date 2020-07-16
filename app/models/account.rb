@@ -31,13 +31,20 @@ class Account < ApplicationRecord
 
   before_validation :assign_number
 
+  scope :settlement, -> { joins(:product).where.not("products.is_fixed or products.is_credit") }
+
   def fullname
     product.name + " " + number
   end
 
-  def withdrow_money(n)
-    self.amount -= n
-    self
+  def withdrow(money, memo = "出金")
+    update(amount: amount - money)
+    Statement.create(amount: money, account_id: id, memo: memo)
+  end
+
+  def deposit(money, memo = "入金")
+    update(amount: amount + money)
+    Statement.create(amount: money, account_id: id, memo: memo)
   end
 
   def assign_number

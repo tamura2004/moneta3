@@ -11,16 +11,21 @@ Rails.application.routes.draw do
   resources :sessions
   resources :users
 
-  scope "/transfers" do
-    get "select_bank", to: "transfers#select_bank"
-    post "select_bank", to: "transfers#select_bank"
-    get "select_branch", to: "transfers#select_branch"
-    post "select_branch", to: "transfers#select_branch"
-    get "select_account", to: "transfers#select_account"
-    post "select_account", to: "transfers#select_account"
-  end
+  # scope "/transfers" do
+  #   post "select_bank", to: "transfers#select_bank"
+  #   post "select_branch", to: "transfers#select_branch"
+  #   post "select_account", to: "transfers#select_account"
+  # end
 
-  resources :transfers
+  # resources :transfers
+
+  resource :transfer do
+    member do
+      post :bank
+      post :branch
+      post :account
+    end
+  end
 
   get "/signin", to: "users#new", as: "signin"
   get "/login", to: "sessions#new", as: "login"
