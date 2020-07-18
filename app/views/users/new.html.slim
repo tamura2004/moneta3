@@ -1,3 +1,4 @@
+- msg = @user.errors.messages
 .row: .col-md-6.offset-md-3: .jumbotron
   h1 お客様情報の登録
   hr.my-8
@@ -5,16 +6,22 @@
     .form-group
       = f.label "ユーザーID"
       = f.text_field :id_name, class: "form-control"
+      .invalid-feedback[style="display: block;"] = msg[:id_name].first      
     .form-group
       = f.label "パスワード"
       = f.text_field :masked_password, class: "form-control"
+      .invalid-feedback[style="display: block;"] = msg[:password].first      
     .form-group
       = f.label "漢字氏名"
       = f.text_field :name, class: "form-control"
+      .invalid-feedback[style="display: block;"] = msg[:name].first      
     .form-group
       = f.label "かな氏名"
       = f.text_field :kana_name, class: "form-control"
+      .invalid-feedback[style="display: block;"] = msg[:kana_name].first      
     .form-group
       = f.label "クレジットカード番号"
       = f.text_field :credit_number, class: "form-control"
+      .invalid-feedback[style="display: block;"] = msg[:credit_number].first      
     = f.submit "登録する", class: "btn btn-primary"
+

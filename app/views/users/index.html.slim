@@ -15,4 +15,6 @@ table.table
         th[scope="row"] = user.name
         th[scope="row"] = user.kana_name
         th[scope="row"] = user.masked_password
-        th[scope="row"] = user.credit_number
+        th[scope="row"] = user.account&.number
+
+= debug @users

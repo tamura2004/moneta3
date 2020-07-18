@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+form .form-group .invalid-feedback {
+  display: block;
+}

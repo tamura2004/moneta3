@@ -6,11 +6,11 @@
     = form_with model: @form, scope: :session, url: :sessions, local: true do |f|
       .form-group
         = f.label "ユーザーID"
-        = f.text_field :id_name, class: "form-control #{'is-invalid' if msg[:id_name].first}"
+        = f.text_field :id_name, class: "form-control #{'is-invalid' if msg[:id_name].present?}"
         .invalid-feedback = msg[:id_name].first
       .form-group
         = f.label "パスワード"
-        = f.text_field :password, class: "form-control #{'is-invalid' if msg[:password].first}"
-        .invalid-feedback[style="display: block;"] = msg[:password].first
+        = f.text_field :password, class: "form-control #{'is-invalid' if msg[:password].present?}"
+        .invalid-feedback = msg[:password].first
       = f.submit "ログイン", class: "btn btn-primary mr-4"
       = link_to "新規ご利用者登録", new_user_path, class: "btn btn-success"
