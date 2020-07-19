@@ -4,3 +4,10 @@ ja:
       session_form:
         id_name: ユーザーID
         password: パスワード
+      user_form:
+        id_name: ユーザーID
+        password: パスワード
+        name: 漢字氏名
+        kana_name: かな氏名
+        credit_number: クレジット番号
+

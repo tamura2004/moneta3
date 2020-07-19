@@ -1,27 +1,26 @@
-- msg = @user.errors.messages
+- msg = @form.errors.messages
 .row: .col-md-6.offset-md-3: .jumbotron
   h1 お客様情報の登録
   hr.my-8
-  = form_with model: @user, local: true do |f|
+  = form_with model: @form, scope: :user, url: :users, local: true do |f|
     .form-group
       = f.label "ユーザーID"
-      = f.text_field :id_name, class: "form-control"
-      .invalid-feedback[style="display: block;"] = msg[:id_name].first      
+      = f.text_field :id_name, class: "form-control #{'is-invalid' if msg[:id_name].present?}"
+      .invalid-feedback = msg[:id_name].first      
     .form-group
       = f.label "パスワード"
-      = f.text_field :masked_password, class: "form-control"
-      .invalid-feedback[style="display: block;"] = msg[:password].first      
+      = f.password_field :password, class: "form-control #{'is-invalid' if msg[:password].present?}"
+      .invalid-feedback = msg[:password].first      
     .form-group
       = f.label "漢字氏名"
-      = f.text_field :name, class: "form-control"
-      .invalid-feedback[style="display: block;"] = msg[:name].first      
+      = f.text_field :name, class: "form-control #{'is-invalid' if msg[:name].present?}"
+      .invalid-feedback = msg[:name].first      
     .form-group
       = f.label "かな氏名"
-      = f.text_field :kana_name, class: "form-control"
-      .invalid-feedback[style="display: block;"] = msg[:kana_name].first      
+      = f.text_field :kana_name, class: "form-control #{'is-invalid' if msg[:kana_name].present?}"
+      .invalid-feedback = msg[:kana_name].first      
     .form-group
       = f.label "クレジットカード番号"
-      = f.text_field :credit_number, class: "form-control"
-      .invalid-feedback[style="display: block;"] = msg[:credit_number].first      
+      = f.text_field :credit_number, class: "form-control #{'is-invalid' if msg[:credit_number].present?}"
+      .invalid-feedback = msg[:credit_number].first      
     = f.submit "登録する", class: "btn btn-primary"
-

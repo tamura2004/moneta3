@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2020_07_13_121336) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "number", null: false
-    t.integer "amount", null: false
+    t.integer "amount", default: 0
     t.date "start_date"
     t.date "end_date"
     t.integer "product_id"

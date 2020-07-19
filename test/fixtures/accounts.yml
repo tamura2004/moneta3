@@ -3,7 +3,7 @@
 # Table name: accounts
 #
 #  id         :integer          not null, primary key
-#  amount     :integer          not null
+#  amount     :integer          default(0)
 #  end_date   :date
 #  number     :string           not null
 #  start_date :date

@@ -3,7 +3,7 @@
 # Table name: accounts
 #
 #  id         :integer          not null, primary key
-#  amount     :integer          not null
+#  amount     :integer          default(0)
 #  end_date   :date
 #  number     :string           not null
 #  start_date :date
@@ -22,8 +22,8 @@
 #  index_accounts_on_user_id     (user_id)
 #
 class Account < ApplicationRecord
-  belongs_to :branch
-  belongs_to :user
+  belongs_to :branch, optional: true
+  belongs_to :user, optional: true
   belongs_to :product
   has_many :statements
 
