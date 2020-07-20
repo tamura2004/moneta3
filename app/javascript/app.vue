@@ -1,6 +1,10 @@
 <template>
   <div id="app">
     <p>{{ message }}</p>
+    <div class="container">
+      <b-jumbotron header="BootstrapVue">
+      </b-jumbotron>
+    </div>
   </div>
 </template>
 

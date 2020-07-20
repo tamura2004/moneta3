@@ -6,7 +6,14 @@
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
 import Vue from 'vue'
+import { BootstrapVue, IconPlugin, IconsPlugin } from "bootstrap-vue";
 import App from '../app.vue'
+
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
