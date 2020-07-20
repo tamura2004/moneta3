@@ -28,7 +28,13 @@ Rails.application.routes.draw do
 
   namespace :api, { format: "json" } do
     namespace :v1 do
+      resources :pages
       resources :users
+      resources :accounts
+      resources :statements
+      resources :banks
+      resources :branches
+      resources :products
     end
   end
 end
