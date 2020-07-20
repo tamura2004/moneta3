@@ -1,15 +1,14 @@
-/ - msg = @accout.errors.messages
 .row: .col-md-6.offset-md-3
   .jumbotron
     h1 = "#{@product.name}開設"
     hr.my-8
-    = form_with model: @account, local: true do |f|
+    = form_with model: @form, scope: :account, url: :accounts, local: true do |f|
       .form-group
         = f.label "支店"
-        = f.select :branch_id, @branches.pluck(:name, :id), {}, class: "form-control"
+        = f.select :branch_id, @branches, {}, class: "form-control"
       .form-group
         = f.label "決済口座"
-        = f.select :account_id, @accounts.map{|r|[r.fullname, r.id]}, {}, class: "form-control"
+        = f.select :account_id, @accounts, {}, class: "form-control"
       .form-group
         = f.label "取引金額"
         = f.number_field :amount, class: "form-control"

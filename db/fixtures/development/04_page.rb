@@ -3,33 +3,31 @@ pages = {
   description: "お取引をお選びください",
   pages: [
     {
+      title: "お預入・お引出",
+      pages: [
+        { title: "普通預金", path: "/products/1/accounts/new", },
+        { title: "定期預金", path: "/products/2/accounts/new", },
+        { title: "外貨預金", path: "/products/3/accounts/new" },
+        { title: "投資信託", path: "/products/4/accounts/new" },
+        { title: "国債", path: "/products/5/accounts/new" },
+        { title: "スピードくじ", path: "/products/6/accounts/new" },
+      ]
+    },
+    {
       title: "残高・入出金明細",
-      description: "ご利用口座の残高一覧です",
       path: "/accounts",
     },
     {
       title: "振込",
-      description: "ご指定先への送金を行います",
       path: "/transfer/new",
-    },
-    {
-      title: "お預入・お引出",
-      pages: [
-        { title: "普通預金", path: "/accounts/new?name=普通預金", },
-        { title: "定期預金", path: "/accounts/new?name=定期預金", },
-        { title: "外貨預金", path: "/accounts/new?name=米ドル預金" },
-        { title: "投資信託", path: "/accounts/new?name=投資信託" },
-        { title: "国債", path: "/accounts/new?name=国債" },
-        { title: "スピードくじ", path: "/accounts/new?name=スピードくじ" },
-      ]
     },
     {
       title: "お借入・ご返済",
       pages: [
-        { title: "カードローン", path: "/accounts/new?name=カードローン" },
-        { title: "住宅ローン", path: "/accounts/new?name=住宅ローン" },
-        { title: "学資ローン", path: "/accounts/new?name=学資ローン" },
-        { title: "フリーローン", path: "/accounts/new?name=フリーローン" },
+        { title: "カードローン", path: "/products/7/accounts/new" },
+        { title: "住宅ローン", path: "/products/8/accounts/new" },
+        { title: "学資ローン", path: "/products/9/accounts/new" },
+        { title: "フリーローン", path: "/products/10/accounts/new" },
       ]
     },
     {
@@ -63,7 +61,7 @@ def create(page, parent)
   Page.seed do |s|
     s.id = $id
     s.title = page[:title]
-    s.description = page[:description] || "todo:機能説明"
+    s.description = page[:description]
     s.page_id = parent
     s.path = page[:path]
   end

@@ -1,7 +1,40 @@
-.row: .col-md-6.offset-md-3
-  .jumbotron
+.jumbotron.py-4
+  .row
+    .col-6
+      h5 振込元口座
+      table.table.table-sm
+        thead
+          tr.d-flex
+            th.col-3[scope="col"] 支店名
+            th.col-3[scope="col"] 種別
+            th.col-3[scope="col"] 口座番号
+            th.col-3[scope="col"] 残高
+        tbody
+          tr.d-flex
+            td.col-3 = @from_account&.branch&.name
+            td.col-3 = @from_account.name
+            td.col-3 = @from_account.number
+            td.col-3 = @from_account.amount
+    .col-6
+      h5 振込先口座
+      table.table.table-sm
+        thead
+          tr.d-flex
+            th.col-3[scope="col"] 銀行名
+            th.col-3[scope="col"] 支店名
+            th.col-3[scope="col"] 種別
+            th.col-3[scope="col"] 口座番号
+        tbody
+          tr.d-flex
+            td.col-3 = @bank.name
+            td.col-3 = @branch.name
+            td.col-3
+            td.col-3
+
+.jumbotron: .row: .col-md-6.offset-md-3
     h1 = "振込先口座番号と振込金額を入力して下さい"
     hr.my-8
+
     = form_with model: @form, scope: :transfer, url: :transfer, local: true do |f|
       .form-group
         = f.hidden_field :from_id, class: "form-control"
@@ -10,9 +43,11 @@
       .form-group
         = f.hidden_field :branch_id, class: "form-control"
       .form-group
-        = f.label "口座番号"
-        = f.text_field :account_number, class: "form-control"
+        = f.label TransferForm.human_attribute_name(:account_number)
+        = f.text_field :account_number, class: "form-control #{'is-invalid' if @form.errors.include?(:account_number)}"
+        .invalid-feedback = @form.errors.full_messages_for(:account_number).first
       .form-group
-        = f.label "振込金額"
-        = f.number_field :amount, class: "form-control"
-      = f.submit "振込", class: "btn btn-primary"
+        = f.label TransferForm.human_attribute_name(:amount)
+        = f.number_field :amount, class: "form-control #{'is-invalid' if @form.errors.include?(:amount)}"
+        .invalid-feedback = @form.errors.full_messages_for(:amount).first
+      = f.submit t(:transfer), class: "btn btn-primary"

@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  before_action :set_page, only: [:index, :show, :new]
+  before_action :set_product, only: [:new]
 
   def index
     @accounts = current_user&.accounts
@@ -10,12 +10,9 @@ class AccountsController < ApplicationController
   end
 
   def new
-    name = params[:name]
-    @page = Page.new(title: name)
-    @branches = mybank.branches
-    @accounts = current_user.accounts.joins(:product).where("not products.is_fixed")
-    @product = Product.find_by(name: name)
-    @account = Account.new(product_id: @product.id, user_id: current_user&.id)
+    @branches = Bank.me.branches.pluck(:name, :id)
+    @accounts = current_user.accounts.not_fixed.map{|r|[r.fullname, r.id]}
+    @form = AccountForm.new(product_id: @product.id, user_id: current_user.id)
   end
 
   def create
@@ -36,8 +33,8 @@ class AccountsController < ApplicationController
 
   private
 
-  def set_page
-    @page = Page.new(title: "取扱金融商品")
+  def set_product
+    @product = Product.find(params[:product_id])
   end
 
   def accout_param

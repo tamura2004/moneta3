@@ -27,11 +27,10 @@ class Account < ApplicationRecord
   belongs_to :product
   has_many :statements
 
-  delegate :name, :is_debit, :rate, :currency, to: :product
-
-  before_validation :assign_number
+  delegate :name, :is_debit, :rate, :currency, :minus_limit, to: :product
 
   scope :settlement, -> { joins(:product).where.not("products.is_fixed or products.is_credit") }
+  scope :not_fixed, -> { joins(:product).where.not("products.is_fixed") }
 
   def fullname
     product.name + " " + number
@@ -45,13 +44,5 @@ class Account < ApplicationRecord
   def deposit(money, memo = "入金")
     update(amount: amount + money)
     Statement.create(amount: money, account_id: id, memo: memo)
-  end
-
-  def assign_number
-    unless number.present?
-      seed = DigitValue.sample(2,2)
-      seed << seed.sum
-      self.number = seed.map(&:to_s).join
-    end
   end
 end

@@ -1,7 +1,6 @@
 class UserForm
   include ActiveModel::Model
   include ActiveModel::Attributes
-  include ActiveModel::Validations::Callbacks
 
   attribute :id_name, :string
   attribute :password, :integer
@@ -20,18 +19,32 @@ class UserForm
 
   def save
     return false if invalid?
-    params = attributes.symbolize_keys.extract!(:id_name, :name, :kana_name)
-    params[:account_id] = find_or_create_credit_card.id
-    params[:masked_password] = 1234 ^ password
-    User.create(params)
-  end
-
-  def find_or_create_credit_card
-    card.accounts.find_by(number: credit_number) ||
-    card.accounts.create(number: credit_number)
+    user = User.new(user_params)
+    user.account = card
+    user.masked_password = 1234 ^ password
+    if user.save
+      card.update(user: user)
+    else
+      card.destroy
+      return false
+    end
   end
 
   def card
-    Product.find_by(name: "クレジットカード")
+    return @card if @card
+    product = Product.find_by(name: "クレジットカード")
+    branch = Branch.find_by(name: "もねたカード")
+    @card = Account.new(number: credit_number, product: product, branch: branch)
+    if @card.save
+      @card
+    else
+      errors.add(:credit_number, "不明なエラーです")
+      logger.debug(@card.inspect)
+      false
+    end
+  end
+
+  def user_params
+    attributes.symbolize_keys.extract!(:id_name, :name, :kana_name)
   end
 end

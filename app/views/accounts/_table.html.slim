@@ -3,29 +3,34 @@ table.table
   thead
     tr.d-flex
       th.col-2[scope="col"] 支店名
-      th.col-3[scope="col"] 商品名
-      th.col-3[scope="col"] 口座番号
-      th.col-2[scope="col"] 残高
+      th.col-2[scope="col"] 商品名
+      th.col-2[scope="col"] 口座番号
       th.col-2[scope="col"]
+       .float-right 残高
+      th.col-4[scope="col"]
   tbody
     - accounts.each do |account|
       - sum += account.amount
       tr.d-flex
         td.col-2 = account.branch&.name
-        td.col-3 = account.name
-        td.col-3 = account.number
-        td.col-2 = account.amount
-        td.col-2
-          .btn-group.float-right[role="group"]
-            = link_to "明細", account_statements_path(account), class: "btn btn-sm btn-success"
-            = form_with model: @form, scope: :transfer, url: :bank_transfer, local: true do |f|
-              = f.hidden_field :from_id, value: account.id
-              = f.submit "振込", class: "btn btn-sm btn-primary"
-            .btn.btn-sm.btn-danger 解約
+        td.col-2 = account.name
+        td.col-2 = account.number
+        td.col-2: .float-right = number_to_currency(account.amount)
+        td.col-4
+          .btn-toolbar.float-right[role="toolbar"]
+            .btn-group.mr-1[role="group"]
+              = link_to "明細", account_statements_path(account), class: "btn btn-sm btn-secondary"
+            .btn-group.mr-1[role="group"]
+              = form_with model: @form, scope: :transfer, url: :bank_transfer, local: true do |f|
+                = f.hidden_field :from_id, value: account.id
+                = f.submit "振込", class: "btn btn-sm btn-secondary"
+            .btn-group.mr-1[role="group"]
+              .btn.btn-sm.btn-danger 解約
   tbody
     tr.d-flex
       th.col-2
-      th.col-3
-      th.col-3 合計
-      th.col-2 = sum
       th.col-2
+      th.col-2 合計
+      th.col-2
+        .float-right = number_to_currency(sum)
+      th.col-4

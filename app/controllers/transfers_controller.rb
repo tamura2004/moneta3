@@ -1,5 +1,8 @@
 class TransfersController < ApplicationController
   before_action :set_form, except: [:new]
+  before_action :set_from_account, only: [:bank, :branch, :account]
+  before_action :set_bank, only: [:branch, :account]
+  before_action :set_branch, only: [:account]
 
   def new
     @form = TransferForm.new
@@ -24,20 +27,30 @@ class TransfersController < ApplicationController
   end
 
   def create
-    @from = Account.find(@form.from_id)
-    @to = Account.find_by(number: @form.account_number)
-
-    money = @form.amount.to_i
-    @from.withdrow(money)
-    @to.deposit(money)
-
-    redirect_to accounts_url
+    @form = TransferForm.new(form_param)
+    if @form.save
+      redirect_to accounts_url
+    else
+      render :account
+    end
   end
 
   private
 
   def set_form
     @form = TransferForm.new(form_param)
+  end
+
+  def set_from_account
+    @from_account = Account.find(@form.from_id)
+  end
+
+  def set_bank
+    @bank = Bank.find(@form.bank_id)
+  end
+
+  def set_branch
+    @branch = Branch.find(@form.branch_id)
   end
 
   def form_param

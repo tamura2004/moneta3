@@ -1,7 +1,6 @@
 products = [
   { name: "普通預金", currency: "JPY", rate: "0.0", is_debit: false, is_fixed: false, is_credit: false },
   { name: "定期預金", currency: "JPY", rate: "1.0", is_debit: false, is_fixed: true, is_credit: false },
-  { name: "積立定期預金", currency: "JPY", rate: "1.0", is_debit: false, is_fixed: true, is_credit: false },
   { name: "米ドル預金", currency: "USD", rate: "2.0", is_debit: false, is_fixed: false, is_credit: false },
   { name: "投資信託", currency: "JPY", rate: "4.0", is_debit: false, is_fixed: true, is_credit: false },
   { name: "国債", currency: "JPY", rate: "2.0", is_debit: false, is_fixed: true, is_credit: false },
@@ -22,5 +21,6 @@ products.each_with_index do |product, id|
     s.is_debit = product[:is_debit]
     s.is_fixed = product[:is_fixed]
     s.is_credit = product[:is_credit]
+    s.minus_limit = 1000000
   end
 end

@@ -12,4 +12,8 @@
 #
 class Bank < ApplicationRecord
   has_many :branches
+
+  def self.me
+    find_by(myself: true)
+  end
 end

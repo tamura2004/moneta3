@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'statements/index'
   root to: "pages#show", id: 1
 
-  resources :accounts do
+  resources :accounts, except: :new do
     resources :statements
   end
   resources :branches
@@ -11,13 +11,9 @@ Rails.application.routes.draw do
   resources :sessions
   resources :users
 
-  # scope "/transfers" do
-  #   post "select_bank", to: "transfers#select_bank"
-  #   post "select_branch", to: "transfers#select_branch"
-  #   post "select_account", to: "transfers#select_account"
-  # end
-
-  # resources :transfers
+  resources :products do
+    resources :accounts, only: [:new]
+  end
 
   resource :transfer do
     member do

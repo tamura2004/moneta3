@@ -1,15 +1,15 @@
 .row: .col-md-6.offset-md-3
   .jumbotron
-    h1 ログイン
+    h1 = t :login
     hr.my-8
     = form_with model: @form, scope: :session, url: :sessions, local: true do |f|
       .form-group
-        = f.label "ユーザーID"
+        = f.label SessionForm.human_attribute_name(:id_name)
         = f.text_field :id_name, class: "form-control #{'is-invalid' if @form.errors.include?(:id_name)}"
         .invalid-feedback = @form.errors.full_messages_for(:id_name).first
       .form-group
-        = f.label "パスワード"
+        = f.label SessionForm.human_attribute_name(:password)
         = f.text_field :password, class: "form-control #{'is-invalid' if @form.errors.include?(:password)}"
         .invalid-feedback = @form.errors.full_messages_for(:password).first
-      = f.submit "ログイン", class: "btn btn-primary mr-4"
-      = link_to "新規ご利用者登録", new_user_path, class: "btn btn-success"
+      = f.submit t(:login), class: "btn btn-primary mr-4"
+      = link_to t(:signin), new_user_path, class: "btn btn-success"

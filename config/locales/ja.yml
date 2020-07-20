@@ -1,4 +1,15 @@
 ja:
+  number:
+    currency:
+      format:
+        unit: 円
+        format: "%n%u"
+        negative_format: "-%n%u"
+        precision: 0
+  login: ログイン
+  signin: 新規ご利用者登録
+  submit: 登録する
+  transfer: 振込
   activemodel:
     attributes:
       session_form:
@@ -10,4 +21,6 @@ ja:
         name: 漢字氏名
         kana_name: かな氏名
         credit_number: クレジット番号
-
+      transfer_form:
+        account_number: 口座番号
+        amount: 振込金額

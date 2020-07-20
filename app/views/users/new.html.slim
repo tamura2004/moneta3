@@ -1,26 +1,26 @@
 - msg = @form.errors.messages
 .row: .col-md-6.offset-md-3: .jumbotron
-  h1 お客様情報の登録
+  h1 = t :signin
   hr.my-8
   = form_with model: @form, scope: :user, url: :users, local: true do |f|
     .form-group
-      = f.label "ユーザーID"
-      = f.text_field :id_name, class: "form-control #{'is-invalid' if msg[:id_name].present?}"
-      .invalid-feedback = msg[:id_name].first      
+      = f.label UserForm.human_attribute_name(:id_name)
+      = f.text_field :id_name, class: "form-control #{'is-invalid' if @form.errors.include?(:id_name)}"
+      .invalid-feedback = @form.errors.full_messages_for(:id_name).first
     .form-group
-      = f.label "パスワード"
-      = f.password_field :password, class: "form-control #{'is-invalid' if msg[:password].present?}"
-      .invalid-feedback = msg[:password].first      
+      = f.label UserForm.human_attribute_name(:password)
+      = f.password_field :password, class: "form-control #{'is-invalid' if @form.errors.include?(:password)}"
+      .invalid-feedback = @form.errors.full_messages_for(:password).first
     .form-group
-      = f.label "漢字氏名"
-      = f.text_field :name, class: "form-control #{'is-invalid' if msg[:name].present?}"
-      .invalid-feedback = msg[:name].first      
+      = f.label UserForm.human_attribute_name(:name)
+      = f.text_field :name, class: "form-control #{'is-invalid' if @form.errors.include?(:name)}"
+      .invalid-feedback = @form.errors.full_messages_for(:name).first
     .form-group
-      = f.label "かな氏名"
-      = f.text_field :kana_name, class: "form-control #{'is-invalid' if msg[:kana_name].present?}"
-      .invalid-feedback = msg[:kana_name].first      
+      = f.label UserForm.human_attribute_name(:kana_name)
+      = f.text_field :kana_name, class: "form-control #{'is-invalid' if @form.errors.include?(:kana_name)}"
+      .invalid-feedback = @form.errors.full_messages_for(:kana_name).first
     .form-group
-      = f.label "クレジットカード番号"
-      = f.text_field :credit_number, class: "form-control #{'is-invalid' if msg[:credit_number].present?}"
-      .invalid-feedback = msg[:credit_number].first      
-    = f.submit "登録する", class: "btn btn-primary"
+      = f.label UserForm.human_attribute_name(:credit_number)
+      = f.text_field :credit_number, class: "form-control #{'is-invalid' if @form.errors.include?(:credit_number)}"
+      .invalid-feedback = @form.errors.full_messages_for(:credit_number).first
+    = f.submit t(:submit), class: "btn btn-primary"

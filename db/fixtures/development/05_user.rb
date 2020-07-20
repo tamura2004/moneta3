@@ -1,11 +1,7 @@
 users = [
   { id_name: "akagi", name: "赤城一郎", kana_name: "あかぎいちろう" },
   { id_name: "aoki", name: "青木一郎", kana_name: "あおきいちろう" },
-  { id_name: "aoki", name: "青木二郎", kana_name: "あおきじろう" },
-  { id_name: "aoki", name: "青木三郎", kana_name: "あおきさぶろう" },
-  { id_name: "aoki", name: "青木四郎", kana_name: "あおきしろう" },
-  { id_name: "aoki", name: "青木五郎", kana_name: "あおきごろう" },
-  { id_name: "aoki", name: "青木六郎", kana_name: "あおきろくろう" },
+  { id_name: "midori", name: "緑川三郎", kana_name: "あおきじろう" },
 ]
 
 credit_card = Product.find_by(name: "クレジットカード")

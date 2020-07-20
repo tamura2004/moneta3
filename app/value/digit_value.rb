@@ -26,6 +26,19 @@ class DigitValue
     DigitValue.new(v, n)
   end
 
+  def -(other)
+    v = a.zip(other.a).map{ |x,y| (x - y) % 10 }
+    DigitValue.new(v, n)
+  end
+
+  def ==(other)
+    a == other.a && n == other.n
+  end
+
+  def zero?
+    a.all?(&:zero?)
+  end
+
   def to_s
     a.reverse.join
   end
