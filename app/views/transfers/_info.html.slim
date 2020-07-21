@@ -1,0 +1,32 @@
+.jumbotron.py-4
+  .row
+    .col-6
+      h5 振込元口座
+      table.table.table-sm
+        thead
+          tr.d-flex
+            th.col-3[scope="col"] 支店名
+            th.col-3[scope="col"] 種別
+            th.col-3[scope="col"] 口座番号
+            th.col-3[scope="col"] 残高
+        tbody
+          tr.d-flex
+            td.col-3 = form.from&.branch&.name
+            td.col-3 = form.from&.name
+            td.col-3 = form.from&.number
+            td.col-3 = form.from&.amount
+    .col-6
+      h5 振込先口座
+      table.table.table-sm
+        thead
+          tr.d-flex
+            th.col-3[scope="col"] 銀行名
+            th.col-3[scope="col"] 支店名
+            th.col-3[scope="col"] 種別
+            th.col-3[scope="col"] 口座番号
+        tbody
+          tr.d-flex
+            td.col-3 = form.bank&.name
+            td.col-3 = form.branch&.name
+            td.col-3
+            td.col-3

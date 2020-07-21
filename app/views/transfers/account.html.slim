@@ -1,35 +1,4 @@
-.jumbotron.py-4
-  .row
-    .col-6
-      h5 振込元口座
-      table.table.table-sm
-        thead
-          tr.d-flex
-            th.col-3[scope="col"] 支店名
-            th.col-3[scope="col"] 種別
-            th.col-3[scope="col"] 口座番号
-            th.col-3[scope="col"] 残高
-        tbody
-          tr.d-flex
-            td.col-3 = @from_account&.branch&.name
-            td.col-3 = @from_account.name
-            td.col-3 = @from_account.number
-            td.col-3 = @from_account.amount
-    .col-6
-      h5 振込先口座
-      table.table.table-sm
-        thead
-          tr.d-flex
-            th.col-3[scope="col"] 銀行名
-            th.col-3[scope="col"] 支店名
-            th.col-3[scope="col"] 種別
-            th.col-3[scope="col"] 口座番号
-        tbody
-          tr.d-flex
-            td.col-3 = @bank.name
-            td.col-3 = @branch.name
-            td.col-3
-            td.col-3
+= render partial: "info", locals: { form: @form }
 
 .jumbotron: .row: .col-md-6.offset-md-3
     h1 = "振込先口座番号と振込金額を入力して下さい"

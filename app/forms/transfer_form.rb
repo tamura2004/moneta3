@@ -9,7 +9,7 @@ class TransferForm
   attribute :amount, :integer
   attribute :memo, :string
 
-  validates :from_id, :bank_id, :branch_id, :account_number, :amount, presence: { message: "%{attribute}を入力して下さい"}
+  validates :from_id, :bank_id, :branch_id, :account_number, :amount, presence: true
   validates :amount, numericality: { only_integer: true, message: "数値を入力して下さい" }
 
   validate :account_present
@@ -22,16 +22,30 @@ class TransferForm
   end
 
   def amount_remain
-    @from_account = Account.find(from_id)
-    if amount > @from_account.amount + @from_account.minus_limit
+    return unless amount
+    if amount > from.amount + from.minus_limit
       errors.add(:amount, "残高が不足しています")
     end
   end
 
   def save
     return false if invalid?
-    @from = Account.find(from_id)
-    @to = Account.find_by(number: account_number)
-    @from.withdrow(amount) && @to.deposit(amount)
+    from.withdrow(amount) && to.deposit(amount)
+  end
+
+  def bank
+    @bank ||= Bank.find(bank_id)
+  end
+
+  def branch
+    @branch ||= Branch.find(branch_id)
+  end
+
+  def from
+    @from ||= Account.find(from_id)
+  end
+
+  def to
+    @to ||= Account.find_by(number: account_number)
   end
 end
