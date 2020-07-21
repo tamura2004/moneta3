@@ -1,10 +1,10 @@
-= javascript_pack_tag "hello_vue"
+/ = javascript_pack_tag "hello_vue"
 .jumbotron: .row
   .col-md-8
     h1.display-4 = @page&.title || "タイトル"
     p.lead = @page&.description
   .col-md-4
-    = image_tag "logo_mo.png", size: "150", style: "margin: -100;"
+    = image_tag "logo_mo.png", size: "150", style: "margin: -20px;"
 
 - @pages.each_slice(3) do |cards|
   .row.mb-4

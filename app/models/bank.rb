@@ -11,7 +11,7 @@
 #  updated_at :datetime         not null
 #
 class Bank < ApplicationRecord
-  has_many :branches
+  has_many :branches, dependent: :destroy
 
   def self.me
     find_by(myself: true)

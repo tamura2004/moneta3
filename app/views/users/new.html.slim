@@ -2,25 +2,10 @@
 .row: .col-md-6.offset-md-3: .jumbotron
   h1 = t :signin
   hr.my-8
-  = form_with model: @form, scope: :user, url: :users, local: true do |f|
-    .form-group
-      = f.label UserForm.human_attribute_name(:id_name)
-      = f.text_field :id_name, class: "form-control #{'is-invalid' if @form.errors.include?(:id_name)}"
-      .invalid-feedback = @form.errors.full_messages_for(:id_name).first
-    .form-group
-      = f.label UserForm.human_attribute_name(:password)
-      = f.password_field :password, class: "form-control #{'is-invalid' if @form.errors.include?(:password)}"
-      .invalid-feedback = @form.errors.full_messages_for(:password).first
-    .form-group
-      = f.label UserForm.human_attribute_name(:name)
-      = f.text_field :name, class: "form-control #{'is-invalid' if @form.errors.include?(:name)}"
-      .invalid-feedback = @form.errors.full_messages_for(:name).first
-    .form-group
-      = f.label UserForm.human_attribute_name(:kana_name)
-      = f.text_field :kana_name, class: "form-control #{'is-invalid' if @form.errors.include?(:kana_name)}"
-      .invalid-feedback = @form.errors.full_messages_for(:kana_name).first
-    .form-group
-      = f.label UserForm.human_attribute_name(:credit_number)
-      = f.text_field :credit_number, class: "form-control #{'is-invalid' if @form.errors.include?(:credit_number)}"
-      .invalid-feedback = @form.errors.full_messages_for(:credit_number).first
+  = bootstrap_form_with @form do |f|
+    = f.text_field :id_name
+    = f.text_field :password
+    = f.text_field :name
+    = f.text_field :kana_name
+    = f.text_field :credit_number
     = f.submit t(:submit), class: "btn btn-primary"

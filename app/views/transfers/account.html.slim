@@ -34,20 +34,10 @@
 .jumbotron: .row: .col-md-6.offset-md-3
     h1 = "振込先口座番号と振込金額を入力して下さい"
     hr.my-8
-
-    = form_with model: @form, scope: :transfer, url: :transfer, local: true do |f|
-      .form-group
-        = f.hidden_field :from_id, class: "form-control"
-      .form-group
-        = f.hidden_field :bank_id, class: "form-control"
-      .form-group
-        = f.hidden_field :branch_id, class: "form-control"
-      .form-group
-        = f.label TransferForm.human_attribute_name(:account_number)
-        = f.text_field :account_number, class: "form-control #{'is-invalid' if @form.errors.include?(:account_number)}"
-        .invalid-feedback = @form.errors.full_messages_for(:account_number).first
-      .form-group
-        = f.label TransferForm.human_attribute_name(:amount)
-        = f.number_field :amount, class: "form-control #{'is-invalid' if @form.errors.include?(:amount)}"
-        .invalid-feedback = @form.errors.full_messages_for(:amount).first
+    = bootstrap_form_with @form do |f|
+      = f.hidden_field :from_id
+      = f.hidden_field :bank_id
+      = f.hidden_field :branch_id
+      = f.text_field :account_number
+      = f.text_field :amount
       = f.submit t(:transfer), class: "btn btn-primary"

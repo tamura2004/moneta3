@@ -14,5 +14,5 @@
 #  updated_at  :datetime         not null
 #
 class Product < ApplicationRecord
-  has_many :accounts
+  has_many :accounts, dependent: :destroy
 end

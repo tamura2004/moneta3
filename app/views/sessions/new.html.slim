@@ -2,14 +2,8 @@
   .jumbotron
     h1 = t :login
     hr.my-8
-    = form_with model: @form, scope: :session, url: :sessions, local: true do |f|
-      .form-group
-        = f.label SessionForm.human_attribute_name(:id_name)
-        = f.text_field :id_name, class: "form-control #{'is-invalid' if @form.errors.include?(:id_name)}"
-        .invalid-feedback = @form.errors.full_messages_for(:id_name).first
-      .form-group
-        = f.label SessionForm.human_attribute_name(:password)
-        = f.text_field :password, class: "form-control #{'is-invalid' if @form.errors.include?(:password)}"
-        .invalid-feedback = @form.errors.full_messages_for(:password).first
+    = bootstrap_form_with @form do |f|
+      = f.text_field :id_name
+      = f.text_field :password
       = f.submit t(:login), class: "btn btn-primary mr-4"
       = link_to t(:signin), new_user_path, class: "btn btn-success"

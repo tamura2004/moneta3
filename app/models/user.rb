@@ -21,5 +21,12 @@
 #
 class User < ApplicationRecord
   belongs_to :account
-  has_many :accounts
+  has_many :accounts, dependent: :destroy
+
+  def account_form(product)
+    AccountForm.new.tap do |form|
+      form.user_id = id
+      form.product_id = product.id
+    end
+  end
 end

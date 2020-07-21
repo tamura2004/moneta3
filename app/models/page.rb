@@ -19,6 +19,6 @@
 #  page_id  (page_id => pages.id)
 #
 class Page < ApplicationRecord
-  has_many :pages
+  has_many :pages, dependent: :destroy
   belongs_to :page, optional: true
 end

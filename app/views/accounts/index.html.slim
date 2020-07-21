@@ -1,10 +1,14 @@
-.jumbotron
-  h1 残高一覧
+.jumbotron: .row
+  .col-10
+    h1 残高一覧
+  .col-2
+    = image_tag "money_satsutaba.png", size: "100", style: "margin: -20px", class: "align-self-center"
 
-- @deposit = @accounts.joins(:product).where("not products.is_debit")
-h2 預入
-= render partial: "table", locals: { accounts: @deposit }
+.container
+  - @deposit = @accounts.joins(:product).where("not products.is_debit")
+  h2 預入
+  = render partial: "table", locals: { accounts: @deposit }
 
-- @debit = @accounts.joins(:product).where("products.is_debit")
-h2 借入
-= render partial: "table", locals: { accounts: @debit }
+  - @debit = @accounts.joins(:product).where("products.is_debit")
+  h2 借入
+  = render partial: "table", locals: { accounts: @debit }

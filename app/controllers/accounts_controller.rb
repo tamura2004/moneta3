@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   before_action :set_product, only: [:new]
+  before_action :set_account, only: [:show, :destroy]
 
   def index
     @accounts = current_user&.accounts
@@ -10,25 +11,21 @@ class AccountsController < ApplicationController
   end
 
   def new
-    @branches = Bank.me.branches.pluck(:name, :id)
-    @accounts = current_user.accounts.not_fixed.map{|r|[r.fullname, r.id]}
-    @form = AccountForm.new(product_id: @product.id, user_id: current_user.id)
+    @form = current_user.account_form(@product)
   end
-
+  
   def create
-    @account = Account.new(accout_param)
-    amount = @account.amount
-
-    @from = Account.find(@account.account_id)
-    @from.withdrow(amount)
-
-    if @account.save
-      Statement.create(amount: amount, account_id: @account.id, memo: "新規")
+    @form = AccountForm.new(accout_param)
+    if @form.save
       redirect_to accounts_url
     else
-      @branches = Branch.all
       render :new
     end
+  end
+  
+  def destroy
+    @account.destroy
+    redirect_to accounts_url, alert: "口座を解約しました"
   end
 
   private
@@ -37,7 +34,11 @@ class AccountsController < ApplicationController
     @product = Product.find(params[:product_id])
   end
 
+  def set_account
+    @account = Account.find(params[:id])
+  end
+
   def accout_param
-    params.require(:account).permit(:amount, :start_date, :end_date, :user_id, :branch_id, :product_id, :account_id)
+    params.require(:account_form).permit(:amount, :start_date, :end_date, :user_id, :branch_id, :product_id, :account_id)
   end
 end

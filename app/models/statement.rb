@@ -18,4 +18,5 @@
 #  account_id  (account_id => accounts.id)
 #
 class Statement < ApplicationRecord
+  belongs_to :account
 end

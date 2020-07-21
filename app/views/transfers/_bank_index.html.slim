@@ -11,7 +11,7 @@
           td.col-4 = "%04d" % bank.number
           td.col-4 = bank.name
           td.col-4
-            = form_with model: form, scope: :transfer, url: :branch_transfer, local: true do |f|
+            = form_with model: form, url: :branch_transfer, local: true do |f|
               = f.hidden_field :from_id, value: form.from_id
               = f.hidden_field :bank_id, value: bank.id
               = f.submit "選択", class: "btn btn-sm btn-primary"

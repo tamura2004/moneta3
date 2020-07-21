@@ -13,7 +13,7 @@
           td.col-3 = "%03d" % branch.number
           td.col-3 = branch.name
           td.col-3
-            = form_with model: form, scope: :transfer, url: :account_transfer, local: true do |f|
+            = form_with model: form, url: :account_transfer, local: true do |f|
               = f.hidden_field :from_id, value: form.from_id
               = f.hidden_field :bank_id, value: form.bank_id
               = f.hidden_field :branch_id, value: branch.id

@@ -8,7 +8,7 @@ credit_card = Product.find_by(name: "クレジットカード")
 branch = Branch.find_by(name: "もねたカード")
 
 users.each_with_index do |user, id|
-  credit_number = User.generate_random_credit_number
+  credit_number = Array.new(3){ "%04d" % rand(10000) }.join("-")
   Account.seed do |s|
     s.id = id + 1
     s.number = credit_number

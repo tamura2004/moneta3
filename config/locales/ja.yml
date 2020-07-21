@@ -24,3 +24,10 @@ ja:
       transfer_form:
         account_number: 口座番号
         amount: 振込金額
+      account_form:
+        branch_id: 支店
+        account_id: 決済口座
+        amount: 取引金額
+        start_date: 開始日
+        end_date: 満期日
+        

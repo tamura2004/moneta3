@@ -3,7 +3,7 @@ pages = {
   description: "お取引をお選びください",
   pages: [
     {
-      title: "お預入・お引出",
+      title: "口座開設",
       pages: [
         { title: "普通預金", path: "/products/1/accounts/new", },
         { title: "定期預金", path: "/products/2/accounts/new", },
@@ -22,7 +22,7 @@ pages = {
       path: "/transfer/new",
     },
     {
-      title: "お借入・ご返済",
+      title: "お借入",
       pages: [
         { title: "カードローン", path: "/products/7/accounts/new" },
         { title: "住宅ローン", path: "/products/8/accounts/new" },
@@ -35,20 +35,11 @@ pages = {
       pages: [
         {
           title: "店舗検索",
-          pages: [
-            { title: "営業店", path: "/branches/1" },
-            { title: "ＡＴＭ", path: "/branches/2" },
-          ]
+          path: "/branches",
         },
         {
-          title: "各種変更・手続き",
-          path: "/questions/1",
-          pages: [
-            { title: "変更・解約", path: "/questions/2" },
-            { title: "認証", path: "/questions/3" },
-            { title: "振込等手続", path: "/questions/4" },
-            { title: "主要なサービス", path: "/questions/5" },
-          ]
+          title: "よくあるご質問",
+          path: "/questions",
         }
       ]
     },

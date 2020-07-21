@@ -19,5 +19,5 @@
 #  bank_id  (bank_id => banks.id)
 #
 class Branch < ApplicationRecord
-  has_many :accounts
+  has_many :accounts, dependent: :destroy
 end

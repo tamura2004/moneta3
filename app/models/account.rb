@@ -25,7 +25,10 @@ class Account < ApplicationRecord
   belongs_to :branch, optional: true
   belongs_to :user, optional: true
   belongs_to :product
-  has_many :statements
+  belongs_to :account, optional: true
+  has_many :statements, dependent: :destroy
+  has_many :users, dependent: :destroy
+  has_many :accounts, dependent: :destroy
 
   delegate :name, :is_debit, :rate, :currency, :minus_limit, to: :product
 

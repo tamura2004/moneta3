@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   resources :sessions
   resources :users
 
+  post "/sessions", to: "sessions#create", as: "session_forms"
+  post "/users", to: "users#create", as: "user_forms"
+  post "/accounts", to: "accounts#create", as: "account_forms"
+  post "/transfers", to: "transfers#create", as: "transfer_forms"
+
   resources :products do
     resources :accounts, only: [:new]
   end

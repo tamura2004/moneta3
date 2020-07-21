@@ -54,6 +54,6 @@ class TransfersController < ApplicationController
   end
 
   def form_param
-    params.require(:transfer).permit(:from_id, :bank_id, :branch_id, :account_id, :amount, :memo, :account_number)
+    params.require(:transfer_form).permit(:from_id, :bank_id, :branch_id, :account_id, :amount, :memo, :account_number)
   end
 end
