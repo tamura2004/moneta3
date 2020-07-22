@@ -1,0 +1,16 @@
+.jumbotron
+  h1 = "#{@state.name}報告書"
+
+table.table
+  tbody
+    tr.d-flex
+      th.col-3[scope="row"] 報告者
+      td.col-9 = @issue.user&.name
+    tr.d-flex
+      th.col-3[scope="row"] 表題
+      td.col-9 = @issue.name
+    tr.d-flex
+      th.col-3[scope="row"] 内容
+      td.col-9 = @issue.memo
+
+= link_to "更新", edit_admin_state_issue_path(@state, @issue), class: "btn btn-secondary"

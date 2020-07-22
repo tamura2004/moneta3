@@ -1,0 +1,9 @@
+.jumbotron
+  h1 バグ報告
+  hr.my-8
+  = bootstrap_form_with @issue do |f|
+    = f.hidden_field :user_id
+    = f.hidden_field :state_id
+    = f.text_field :name
+    = f.text_area :memo
+    = f.submit t(:report), class: "btn btn-primary"

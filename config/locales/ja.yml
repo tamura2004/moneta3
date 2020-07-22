@@ -9,7 +9,13 @@ ja:
   login: ログイン
   signin: 新規ご利用者登録
   submit: 登録する
+  report: 報告する
   transfer: 振込
+  activerecord:
+    attributes:
+      issue:
+        name: 表題
+        memo: 説明
   activemodel:
     attributes:
       session_form:
@@ -30,4 +36,3 @@ ja:
         amount: 取引金額
         start_date: 開始日
         end_date: 満期日
-        

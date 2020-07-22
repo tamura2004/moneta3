@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_12_092131) do
+ActiveRecord::Schema.define(version: 2020_07_22_045152) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "number", null: false
@@ -48,6 +48,17 @@ ActiveRecord::Schema.define(version: 2020_07_12_092131) do
     t.index ["bank_id"], name: "index_branches_on_bank_id"
   end
 
+  create_table "issues", force: :cascade do |t|
+    t.string "name"
+    t.string "memo"
+    t.integer "user_id", null: false
+    t.integer "state_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["state_id"], name: "index_issues_on_state_id"
+    t.index ["user_id"], name: "index_issues_on_user_id"
+  end
+
   create_table "pages", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
@@ -79,6 +90,12 @@ ActiveRecord::Schema.define(version: 2020_07_12_092131) do
     t.index ["account_id"], name: "index_statements_on_account_id"
   end
 
+  create_table "states", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "id_name"
     t.string "name"
@@ -91,6 +108,8 @@ ActiveRecord::Schema.define(version: 2020_07_12_092131) do
   end
 
   add_foreign_key "branches", "banks"
+  add_foreign_key "issues", "states"
+  add_foreign_key "issues", "users"
   add_foreign_key "pages", "pages"
   add_foreign_key "statements", "accounts"
   add_foreign_key "users", "accounts"

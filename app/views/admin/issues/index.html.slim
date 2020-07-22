@@ -1,0 +1,34 @@
+.jumbotron
+  h1 バグ報告
+
+ul.nav.nav-tabs
+  li.nav-item
+    = link_to "発生報告", admin_state_issues_path(1), class: "nav-link #{'active' if @state.id == 1}"
+  li.nav-item
+    = link_to "対応報告", admin_state_issues_path(2), class: "nav-link #{'active' if @state.id == 2}"
+  li.nav-item
+    = link_to "終了報告", admin_state_issues_path(3), class: "nav-link #{'active' if @state.id == 3}"
+
+.container
+  .row
+    table.table.mt-4
+      thead
+        tr.d-flex
+          th.col-1[scope="col"] #
+          th.col-2[scope="col"] 報告者
+          th.col-2[scope="col"] 発生時刻
+          th.col-4[scope="col"] 表題
+          th.col-3[scope="col"]
+      tbody
+        - @issues.each do |issue|
+          tr.d-flex
+            td.col-1 = issue.id
+            td.col-2 = issue.user&.name
+            td.col-2 = issue.created_at
+            td.col-4 = issue.name
+            td.col-3
+              .btn-toolbar.float-right[role="toolbar"]
+                .btn-group.mr-1[role="group"]
+                  = link_to "明細", admin_state_issue_path(@state,issue), class: "btn btn-secondary"
+
+  = link_to "＋新規バグ報告", new_admin_state_issue_path(1), class: "btn btn-primary"

@@ -22,6 +22,7 @@
 class User < ApplicationRecord
   belongs_to :account
   has_many :accounts, dependent: :destroy
+  has_many :issues, dependent: :destroy
 
   def account_form(product)
     AccountForm.new.tap do |form|
