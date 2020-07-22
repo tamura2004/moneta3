@@ -1,4 +1,10 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 
-body { padding-top: 70px;}
+body {
+  padding-top: 70px;
+}
+
+form .form-group .invalid-feedback {
+  display: block;
+}

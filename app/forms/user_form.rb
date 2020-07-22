@@ -10,7 +10,7 @@ class UserForm
   attribute :credit_number, :string
   attribute :account_id, :string
 
-  validates :id_name, :password, :name, :kana_name, :credit_number, presence: { message: "%{attribute}を入力してください" }
+  validates :id_name, :password, :name, :kana_name, :credit_number, presence: true
   validates :id_name, format: { with: /\A[a-z]+\z/, message: "英子文字のみが使えます" }
   validates :id_name, length: { maximum: 6, too_long: "最大6文字です" }
   validates :password, format: { with: /\A[0-9]{4}\z/, message: "パスワードは数字4文字です" }
