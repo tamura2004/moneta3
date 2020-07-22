@@ -2,6 +2,7 @@ class BranchesController < ApplicationController
   before_action :set_page, only: [:index, :show]
 
   def index
+    @branches = Branch.all
   end
 
   def show

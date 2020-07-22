@@ -34,15 +34,15 @@ class TransferForm
   end
 
   def bank
-    @bank ||= Bank.find(bank_id)
+    @bank ||= Bank.find_by(id: bank_id)
   end
 
   def branch
-    @branch ||= Branch.find(branch_id)
+    @branch ||= Branch.find_by(id: branch_id)
   end
 
   def from
-    @from ||= Account.find(from_id)
+    @from ||= Account.find_by(id: from_id)
   end
 
   def to

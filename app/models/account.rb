@@ -45,7 +45,23 @@ class Account < ApplicationRecord
   end
 
   def deposit(money, memo = "入金")
-    update(amount: amount + money)
-    Statement.create(amount: money, account_id: id, memo: memo)
+    if product.name == "スピードくじ"
+      rank = (money ^ 777777).digits.sum % 7
+      money *= 2 ** (7 - rank) - 2 ** rank
+      update(amount: amount + money)
+      Statement.create(amount: money , account_id: id, memo: "#{rank+1}等賞")
+    else
+      update(amount: amount + money)
+      Statement.create(amount: money, account_id: id, memo: memo)
+    end
+  end
+
+  def kaiyaku
+    return "クレジットカードは解約できません" if users.present?
+    return "決済口座は解約できません" if accounts.present?
+    return "決済口座がありません" unless account
+    account.deposit(amount)
+    destroy
+    return nil
   end
 end

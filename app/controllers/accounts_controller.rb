@@ -13,7 +13,7 @@ class AccountsController < ApplicationController
   def new
     @form = current_user.account_form(@product)
   end
-  
+
   def create
     @form = AccountForm.new(accout_param)
     if @form.save
@@ -22,10 +22,13 @@ class AccountsController < ApplicationController
       render :new
     end
   end
-  
+
   def destroy
-    @account.destroy
-    redirect_to accounts_url, alert: "口座を解約しました"
+    if error = @account.kaiyaku
+      redirect_to accounts_url, alert: error
+    else
+      redirect_to accounts_url, info: "#{@account.fullname}を解約しました"
+    end
   end
 
   private

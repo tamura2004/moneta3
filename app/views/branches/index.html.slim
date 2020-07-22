@@ -1,4 +1,17 @@
-h1
-  | Branches#index
-p
-  | Find me in app/views/branches/index.html.erb
+.jumbotron
+  h1 店舗一覧
+
+table.table
+  thead
+    tr.d-flex
+      th.col-3 金融機関番号
+      th.col-3 銀行名
+      th.col-3 支店番号
+      th.col-3 支店名
+  tbody
+    - @branches.each do |branch|
+      tr.d-flex
+        td.col-3 = branch.bank&.number
+        td.col-3 = branch.bank&.name
+        td.col-3 = "%03d" % branch.number
+        td.col-3 = branch.name
