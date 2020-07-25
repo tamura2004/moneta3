@@ -5,7 +5,7 @@ class TransferForm
   attribute :from_id, :integer
   attribute :bank_id, :integer
   attribute :branch_id, :integer
-  attribute :account_number, :integer
+  attribute :account_number, :string
   attribute :amount, :integer
   attribute :memo, :string
 

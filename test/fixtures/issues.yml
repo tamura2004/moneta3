@@ -24,13 +24,11 @@
 one:
   name: MyString
   memo: MyString
-  issue: one
   user: one
   state: one
 
 two:
   name: MyString
   memo: MyString
-  issue: two
   user: two
   state: two

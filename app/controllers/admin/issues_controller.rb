@@ -14,6 +14,7 @@ class Admin::IssuesController < ApplicationController
   end
 
   def edit
+    @issue.user = current_user
   end
 
   def create
@@ -27,7 +28,7 @@ class Admin::IssuesController < ApplicationController
 
   def update
     if @issue.update(issue_params)
-      redirect_to admin_state_issues_url(@state)
+      redirect_to admin_state_issues_url(@issue.state)
     else
       render :edit
     end

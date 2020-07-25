@@ -39,7 +39,7 @@ class UserForm
       @card
     else
       errors.add(:credit_number, "不明なエラーです")
-      logger.debug(@card.inspect)
+      puts @card.inspect
       false
     end
   end

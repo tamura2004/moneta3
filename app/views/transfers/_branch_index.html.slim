@@ -17,4 +17,4 @@
               = f.hidden_field :from_id, value: form.from_id
               = f.hidden_field :bank_id, value: form.bank_id
               = f.hidden_field :branch_id, value: branch.id
-              = f.submit "選択", class: "btn btn-sm btn-primary"
+              = f.submit "選択", class: "btn btn-sm btn-primary", id: "branch#{i}"

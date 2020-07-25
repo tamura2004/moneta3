@@ -13,6 +13,13 @@ class AccountForm
 
   validates :amount, presence: true
   validates :amount, numericality: { only_integer: true, message: "数値を入力して下さい" }
+  validate :amount_less
+
+  def amount_less
+    if payment.amount + payment.minus_limit < amount
+      errors.add :amount, "残高が不足しています"
+    end
+  end
 
   def accounts
     user.accounts.not_fixed.map{|v|[v.fullname, v.id]}

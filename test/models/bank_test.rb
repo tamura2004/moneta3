@@ -13,7 +13,15 @@
 require 'test_helper'
 
 class BankTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should not save bank without name" do
+    bank = Bank.new
+    assert_raises ActiveRecord::NotNullViolation do
+      bank.save
+    end
+  end
+
+  test "get myself true by self.me" do
+    assert Bank.me == banks(:one)
+    assert_not Bank.me == banks(:two)
+  end
 end

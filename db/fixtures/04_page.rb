@@ -10,7 +10,7 @@ pages = {
         { title: "外貨預金", path: "/products/3/accounts/new" },
         { title: "投資信託", path: "/products/4/accounts/new" },
         { title: "国債", path: "/products/5/accounts/new" },
-        { title: "スピードくじ", path: "/products/6/accounts/new" },
+        { title: "スピードくじ", path: "/lotteries" },
       ]
     },
     {
@@ -31,15 +31,15 @@ pages = {
       ]
     },
     {
-      title: "ご質問",
+      title: "お問い合わせ",
       pages: [
         {
           title: "店舗検索",
           path: "/branches",
         },
         {
-          title: "よくあるご質問",
-          path: "/questions",
+          title: "バグ報告",
+          path: "/admin/state/1/issues",
         }
       ]
     },

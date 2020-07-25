@@ -10,7 +10,11 @@
 require 'test_helper'
 
 class StateTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should not name be null" do
+    assert !State.new.save
+  end
+
+  test "has many issues" do
+    assert states(:one).issues
+  end
 end

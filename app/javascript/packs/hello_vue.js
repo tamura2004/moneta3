@@ -8,12 +8,14 @@
 import Vue from 'vue'
 import { BootstrapVue, IconPlugin, IconsPlugin } from "bootstrap-vue";
 import App from '../app.vue'
+import VueFlipcard from "vue-flipcard";
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
+Vue.component("vue-flipcard", VueFlipcard);
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({

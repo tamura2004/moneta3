@@ -20,16 +20,14 @@
 #  account_id  (account_id => accounts.id)
 #
 
-one:
-  id_name: MyString
-  name: MyString
-  kana_name: MyString
-  masked_password: MyString
-  credit: MyString
+akagi:
+  id_name: akagi
+  name: 赤城一郎
+  kana_name: あかぎいちろう
+  masked_password: 0
 
-two:
-  id_name: MyString
-  name: MyString
-  kana_name: MyString
-  masked_password: MyString
-  credit: MyString
+aoki:
+  id_name: aoki
+  name: 青木次郎
+  kana_name: あおきじろう
+  masked_password: 0

@@ -4,7 +4,7 @@ class BootstrapFormBuilder < ActionView::Helpers::FormBuilder
 
     @template.content_tag(:div, class: "form-group") do
       label(name) +
-      super(attribute, class: is_invalid?(attribute)) +
+      super(attribute, id: attribute, class: is_invalid?(attribute)) +
       invalid_feedback(attribute)
     end
   end
@@ -13,7 +13,7 @@ class BootstrapFormBuilder < ActionView::Helpers::FormBuilder
     name = object.class.human_attribute_name(attribute)
     @template.content_tag(:div, class: "form-group") do
       label(name) +
-      super(attribute, class: is_invalid?(attribute), rows: 10) +
+      super(attribute, id: attribute, class: is_invalid?(attribute), rows: 10) +
       invalid_feedback(attribute)
     end
   end
@@ -23,7 +23,7 @@ class BootstrapFormBuilder < ActionView::Helpers::FormBuilder
 
     @template.content_tag(:div, class: "form-group") do
       label(name) +
-      super(attribute, class: is_invalid?(attribute)) +
+      super(attribute, id: attribute, class: is_invalid?(attribute)) +
       invalid_feedback(attribute)
     end
   end
@@ -33,7 +33,7 @@ class BootstrapFormBuilder < ActionView::Helpers::FormBuilder
 
     @template.content_tag(:div, class: "form-group") do
       label(name) +
-      select(attribute, collection, {}, class: is_invalid?(attribute)) +
+      select(attribute, collection, {}, id: attribute, class: is_invalid?(attribute)) +
       invalid_feedback(attribute)
     end
   end

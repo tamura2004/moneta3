@@ -22,7 +22,15 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "account form" do  
+    form = users(:one).account_form(products(:one))
+    assert form.is_a? AccountForm
+    assert form.user_id == users(:one).id
+    assert form.product_id == products(:one).id
+  end
+
+  test "has settlement account" do
+    pp users(:akagi).accounts.settlement
+    assert users(:akagi).accounts.settlement.count == 2
+  end
 end

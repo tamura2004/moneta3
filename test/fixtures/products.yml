@@ -14,14 +14,18 @@
 #  updated_at  :datetime         not null
 #
 
-one:
-  name: MyString
+creditcard:
+  name: クレジットカード
   rate: 9.99
   currency: MyString
   is_debit: false
+  is_credit: true
+  is_fixed: false
 
-two:
-  name: MyString
+futsu:
+  name: 普通預金
   rate: 9.99
   currency: MyString
   is_debit: false
+  is_credit: false
+  is_fixed: false

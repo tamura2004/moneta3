@@ -1,26 +1,27 @@
 <template>
   <div id="app">
-    <p>{{ message }}</p>
     <div class="container">
-      <b-jumbotron header="BootstrapVue">
-      </b-jumbotron>
+      <div class="jumbotron">
+        <h1>一つ選んでスクラッチしてください</h1>
+        <p>1口座100,000円です</p>
+      </div>
+      <div class="row mb-4" v-for="row in 2">
+        <div class="col-3" v-for="col in 4">
+          <flip></flip>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Flip from "./components/flip.vue";
 export default {
-  data: function () {
-    return {
-      message: "Hello Vue!"
-    }
-  }
+  components: {
+    Flip
+  },
 }
 </script>
 
 <style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
 </style>

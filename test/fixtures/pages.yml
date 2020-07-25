@@ -20,11 +20,21 @@
 #
 
 one:
-  title: MyString
-  description: MyText
-  page: one
+  id: 1
+  title: もねた銀行
+  description: お取引をお選びください
+  page: null
 
 two:
-  title: MyString
-  description: MyText
+  title: 口座開設
+  page: one
+
+three:
+  title: 普通預金
   page: two
+  path: /products/1/accounts/new
+
+four:
+  title: 残高・入出金明細
+  page: one
+  path: /accounts

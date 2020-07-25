@@ -21,7 +21,17 @@
 require 'test_helper'
 
 class BranchTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should not name be null" do
+    assert_raises ActiveRecord::NotNullViolation do
+      Bank.new.save
+    end
+  end
+
+  test "belongs to bank" do
+    assert branches(:one).bank == banks(:one)
+  end
+
+  test "has many accounts" do
+    assert branches(:one).accounts
+  end
 end

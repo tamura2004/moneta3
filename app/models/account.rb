@@ -45,15 +45,8 @@ class Account < ApplicationRecord
   end
 
   def deposit(money, memo = "入金")
-    if product.name == "スピードくじ"
-      rank = (money ^ 777777).digits.sum % 7
-      money *= 2 ** (7 - rank) - 2 ** rank
-      update(amount: amount + money)
-      Statement.create(amount: money , account_id: id, memo: "#{rank+1}等賞")
-    else
-      update(amount: amount + money)
-      Statement.create(amount: money, account_id: id, memo: memo)
-    end
+    update(amount: amount + money)
+    Statement.create(amount: money, account_id: id, memo: memo)
   end
 
   def kaiyaku
