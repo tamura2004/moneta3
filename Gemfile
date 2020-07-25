@@ -20,7 +20,6 @@ group :development, :test do
   gem 'sqlite3', '~> 1.4'
   gem "pry-byebug"
   gem "hirb"
-  gem "warning"
 end
 
 group :development do
@@ -42,3 +41,4 @@ gem "annotate"
 gem "seed-fu"
 gem "slim"
 gem "rails-i18n"
+gem "warning"
