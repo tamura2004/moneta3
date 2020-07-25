@@ -22,6 +22,5 @@ class BankTest < ActiveSupport::TestCase
 
   test "get myself true by self.me" do
     assert Bank.me == banks(:one)
-    assert_not Bank.me == banks(:two)
   end
 end
