@@ -25,6 +25,7 @@ akagi:
   name: 赤城一郎
   kana_name: あかぎいちろう
   masked_password: 0
+  account: one
 
 aoki:
   id_name: aoki

@@ -29,3 +29,11 @@ futsu:
   is_debit: false
   is_credit: false
   is_fixed: false
+
+lottery:
+  name: スピードくじ
+  rate: 9.99
+  currency: MyString
+  is_debit: false
+  is_credit: false
+  is_fixed: false

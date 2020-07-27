@@ -11,3 +11,14 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+module LoginHelper
+  def login(user)
+    post "/sessions", params: { session_form: { id_name: user.id_name, password: user.masked_password ^ 1234 }}
+    follow_redirect!
+  end
+end
+
+class ActionDispatch::IntegrationTest
+  include LoginHelper
+end
