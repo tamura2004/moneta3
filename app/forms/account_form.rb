@@ -11,11 +11,11 @@ class AccountForm
   attribute :branch_id, :integer
   attribute :user_id, :integer
 
-  validates :amount, presence: true
-  validates :amount, numericality: { only_integer: true, message: "数値を入力して下さい" }
+  validates :amount, :account_id, presence: true
   validate :amount_less
 
   def amount_less
+    return unless payment
     if payment.amount + payment.minus_limit < amount
       errors.add :amount, "残高が不足しています"
     end
@@ -47,14 +47,14 @@ class AccountForm
   end
 
   def payment
-    @payment ||= Account.find(account_id)
+    @payment ||= Account.find_by(id: account_id)
   end
 
   def product
-    @product ||= Product.find(product_id)
+    @product ||= Product.find_by(id: product_id)
   end
 
   def user
-    @user ||= User.find(user_id)
+    @user ||= User.find_by(id: user_id)
   end
 end

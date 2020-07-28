@@ -35,7 +35,7 @@ class LoginFLowTest < ActionDispatch::IntegrationTest
     get "/sessions/new"
     post "/sessions", params: { session_form: { id_name: "Akagi", password: 1234 }}
     assert_response :success
-    assert_select "div", "ユーザーIDは英子文字のみが使えます"
+    assert_select "div", "ユーザーIDは英小文字のみが使えます"
   end
 
   test "login fails when user id too long" do
