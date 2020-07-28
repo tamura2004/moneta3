@@ -23,7 +23,44 @@
 require 'test_helper'
 
 class IssueTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  setup do
+    @issue = Issue.new do |i|
+      i.name = "表示されない"
+      i.memo = "画面が真っ白になる"
+      i.user = users(:akagi)
+      i.state = states(:reported)
+    end
+  end
+
+  test "適正である" do
+    assert @issue.valid?
+  end
+
+  test "タイトルが必要" do
+    @issue.name = nil
+    assert @issue.invalid?
+  end
+
+  test "内容が必要" do
+    @issue.memo = nil
+    assert @issue.invalid?
+  end
+
+  test "ユーザーが必要" do
+    @issue.user = nil
+    assert @issue.invalid?
+  end
+
+  test "状態が必要" do
+    @issue.state = nil
+    assert @issue.invalid?
+  end
+
+  test "ユーザーに属する" do
+    assert_respond_to @issue, :user
+  end
+
+  test "状態に属する" do
+    assert_respond_to @issue, :state
+  end
 end

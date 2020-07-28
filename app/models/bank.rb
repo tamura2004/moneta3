@@ -13,6 +13,9 @@
 class Bank < ApplicationRecord
   has_many :branches, dependent: :destroy
 
+  validates :name, :number,presence: true
+  validates :myself, inclusion: { in: [true, false] }
+
   def self.me
     find_by(myself: true)
   end

@@ -30,6 +30,8 @@ class Account < ApplicationRecord
   has_many :users, dependent: :destroy
   has_many :accounts, dependent: :destroy
 
+  validates :number, presence: true
+
   delegate :name, :is_debit, :rate, :currency, :minus_limit, to: :product
 
   scope :settlement, -> { joins(:product).where.not("products.is_fixed or products.is_credit") }

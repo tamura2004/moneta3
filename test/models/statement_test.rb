@@ -20,7 +20,28 @@
 require 'test_helper'
 
 class StatementTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  setup do
+    @statement = Statement.new do |s|
+      s.amount = 1000
+      s.account = accounts(:one)
+    end
+  end
+
+  test "適正である" do
+    assert @statement.valid?
+  end
+
+  test "金額が必要" do
+    @statement.amount = nil
+    assert @statement.invalid?
+  end
+
+  test "口座が必要" do
+    @statement.account = nil
+    assert @statement.invalid?
+  end
+
+  test "口座に属する" do
+    assert_respond_to @statement, :account
+  end
 end

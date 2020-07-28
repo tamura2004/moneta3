@@ -24,11 +24,11 @@
 one:
   name: MyString
   memo: MyString
-  user: one
-  state: one
+  user: akagi
+  state: reported
 
 two:
   name: MyString
   memo: MyString
-  user: two
-  state: two
+  user: aoki
+  state: fixed

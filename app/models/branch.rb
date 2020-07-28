@@ -21,4 +21,6 @@
 class Branch < ApplicationRecord
   belongs_to :bank
   has_many :accounts, dependent: :destroy
+
+  validates :name, :number, presence: true
 end

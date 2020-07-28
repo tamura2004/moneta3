@@ -21,7 +21,41 @@
 require 'test_helper'
 
 class PageTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  setup do
+    @page = Page.new do |p|
+      p.title = "タイトル"
+    end
+  end
+
+  test "適正である" do
+    assert @page.valid?
+  end
+
+  test "タイトルが必要" do
+    @page.title = nil
+    assert @page.invalid?
+  end
+
+  test "urlパスを持てる" do
+    @page.path = "/pages"
+    assert @page.valid?
+  end
+
+  test "説明を持てる" do
+    @page.description = "ページの説明"
+    assert @page.valid?
+  end
+
+  test "親ページを持てる" do
+    @page.page = pages(:one)
+    assert @page.valid?
+  end
+
+  test "子ページを持つ" do
+    assert_respond_to @page, :pages
+  end
+
+  test "親ページに属する" do
+    assert_respond_to @page, :page
+  end
 end

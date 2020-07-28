@@ -10,11 +10,20 @@
 require 'test_helper'
 
 class StateTest < ActiveSupport::TestCase
-  test "should not name be null" do
-    assert !State.new.save
+  setup do
+    @state = State.new(name: "状態名")
   end
 
-  test "has many issues" do
-    assert states(:one).issues
+  test "適正である" do
+    assert @state.valid?
+  end
+
+  test "名前が必要" do
+    @state.name = nil
+    assert @state.invalid?
+  end
+
+  test "報告を持つ" do
+    assert_respond_to @state, :issues
   end
 end

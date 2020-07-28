@@ -24,6 +24,8 @@ class User < ApplicationRecord
   has_many :accounts, dependent: :destroy
   has_many :issues, dependent: :destroy
 
+  validates :id_name, :name, :masked_password, presence: true
+
   def account_form(product)
     AccountForm.new.tap do |form|
       form.user_id = id

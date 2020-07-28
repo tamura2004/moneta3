@@ -19,4 +19,6 @@
 #
 class Statement < ApplicationRecord
   belongs_to :account
+
+  validates :amount, presence: true
 end

@@ -8,8 +8,11 @@
 #  updated_at :datetime         not null
 #
 
-one:
-  name: MyString
+reported:
+  name: 発生
 
-two:
-  name: MyString
+fixed:
+  name: 修正
+
+completed:
+  name: 完了

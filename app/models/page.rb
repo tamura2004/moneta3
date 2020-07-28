@@ -21,4 +21,6 @@
 class Page < ApplicationRecord
   has_many :pages, dependent: :destroy
   belongs_to :page, optional: true
+
+  validates :title, presence: true
 end

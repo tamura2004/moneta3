@@ -21,17 +21,33 @@
 require 'test_helper'
 
 class BranchTest < ActiveSupport::TestCase
-  test "should not name be null" do
-    assert_raises ActiveRecord::NotNullViolation do
-      Bank.new.save
+  setup do
+    @branch = Branch.new do |b|
+      b.name = "双子座支店"
+      b.number = 123
+      b.bank = banks(:one)
     end
   end
 
-  test "belongs to bank" do
-    assert branches(:one).bank == banks(:one)
+  test "適正である" do
+    assert @branch.valid?
   end
 
-  test "has many accounts" do
-    assert branches(:one).accounts
+  test "名前が必要" do
+    @branch.name = nil
+    assert @branch.invalid?
+  end
+
+  test "番号が必要" do
+    @branch.number = nil
+    assert @branch.invalid?
+  end
+
+  test "銀行に属する" do
+    assert_respond_to @branch, :bank
+  end
+
+  test "口座を持つ" do
+    assert_respond_to @branch, :accounts
   end
 end
