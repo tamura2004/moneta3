@@ -13,7 +13,7 @@
       <div class="card h-100" key="back" v-else>
         <img src="/takarakuji.png" alt="kuji" class="card-img-top">
         <div class="card-body">
-          <button class="btn btn-primary btn-sm btn-block">選ぶ</button>
+          <button class="btn btn-primary btn-sm btn-block" :class="{disabled: selected}">選ぶ</button>
         </div>
       </div>
 
@@ -23,16 +23,17 @@
 
 <script>
 export default {
-  data: function () {
+  props: ["selected"],
+  data() {
     return {
       front: false,
-      rank: 5,
-      money: 100,
+      rank: null,
+      money: null,
     }
   },
   methods: {
     click() {
-      if (!this.front) {
+      if (!this.selected && !this.front) {
         const MAX = 8;
         this.rank = MAX - Math.floor(Math.random() * Math.random() * MAX);
         this.money = Math.pow(10, MAX + 2 - this.rank);
@@ -40,6 +41,7 @@ export default {
         if (10000 <= this.money) this.money = `${this.money / 10000}万`
         this.front = !this.front;
       }
+      this.$emit("click", this.rank);
     }
   }
 }
