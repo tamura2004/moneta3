@@ -27,3 +27,5 @@ table.table
               = f.submit "振込", class: "btn btn-sm btn-secondary"
           .btn-group.mr-1[role="group"]
             = link_to "解約", account_path(@account), class: "btn btn-sm btn-danger", method: :delete
+
+= link_to "口座一覧へ", accounts_path, class: "btn btn-primary"

@@ -20,6 +20,7 @@ group :development, :test do
   gem 'sqlite3', '~> 1.4'
   gem "pry-byebug"
   gem "hirb"
+  gem "rails-erd"
 end
 
 group :development do
