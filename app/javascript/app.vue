@@ -5,8 +5,8 @@
         <h1>一つ選んでスクラッチしてください</h1>
         <p>1口座100,000円です</p>
       </div>
-      <div class="row mb-4" v-for="row in 2">
-        <div class="col-3" v-for="col in 4">
+      <div class="row mb-4" v-for="row in 2" :key="row">
+        <div class="col-3" v-for="col in 4" :key="col">
           <flip
             :selected="selected"
             :row="row"
