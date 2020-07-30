@@ -9,18 +9,22 @@ packages.each do |name|
   package name
 end
 
-git "src/chruby" do
-  repository "https://github.com/postmodern/chruby.git"
+directory "/home/moneta/src"
+
+execute "download and extruct chruby" do
+  command "cd /home/moneta/src"
+  command "wget -O chruby-0.3.9.tar.gz https://github.com/postmodern/chruby/archive/v0.3.9.tar.gz"
+  command "tar -xzvf chruby-0.3.9.tar.gz"
+  command "cd chruby-0.3.9"
+  command "make install"
+  command "echo 'source /usr/local/share/chruby/chruby.sh' >> /home/moneta/.bashrc"
+  command "echo 'source /usr/local/share/chruby/auto.sh' >> /home/moneta/.bashrc"
 end
 
-execute "setup.sh" do
-  command "cd src/chruby; sh scripts/setup.sh"
-end
-
-git "src/ruby-install" do
-  repository "https://github.com/postmodern/ruby-install.git"
-end
-
-execute "make install" do
-  command "cd src/ruby-install; sudo make install"
+execute "download and extruct ruby-install" do
+  command "cd /home/moneta/src"
+  command "wget -O ruby-install-0.7.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.7.1.tar.gz"
+  command "tar -xzvf ruby-install-0.7.1.tar.gz"
+  command "cd ruby-install-0.7.1"
+  command "make install"
 end
