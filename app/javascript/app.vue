@@ -19,7 +19,7 @@
     <mdialog
       :rank="rank"
       :dialog="dialog"
-      @click="clickDialog"
+      @click="close"
     ></mdialog>
   </div>
 </template>
@@ -42,10 +42,10 @@ export default {
   methods: {
     click(rank) {
       this.selected = true;
-      this.rank = rank;
-      setTimeout(this.clickDialog, 700);
+      setTimeout(() => {this.rank = rank}, 1000);
+      setTimeout(this.close, 2000);
     },
-    clickDialog() {
+    close() {
       this.dialog = false;
     }
   }
