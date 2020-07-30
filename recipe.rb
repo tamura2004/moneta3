@@ -1,15 +1,29 @@
+# useradd -m -s /bin/bash -p 1234 moneta
+# apt update
+# apt install git ruby sudo
+# gem install itamae
+# mkdir -p /home/moneta/project/rails
+# cd /home/moneta/project/rails
+# git clone https://github.com/tamura2004/moneta3
+# cd moneta3
+# itamae local recipe --dry-run
+# itamae local recipe
+
 packages = [
-  "sudo",
   "wget",
   "build-essential",
   "sqlite3",
   "libsqlite3-dev",
-  "graphviz"
+  "graphviz",
+  "nodejs",
+  "npm",
+  "curl"
 ]
 
 packages.each do |name|
-  user "root"
-  package name
+  package name do
+    user "root"
+  end
 end
 
 directory "src" do
@@ -25,12 +39,14 @@ end
   "tar -xzvf chruby-0.3.9.tar.gz",
 ].each do |cmd|
   execute cmd do
+    not_if "ls /usr/local/share/chruby"
     user "moneta"
     cwd "/home/moneta/src"
   end
 end
 
 execute "make install" do
+  not_if "ls /usr/local/share/chruby"
   user "root"
   cwd "/home/moneta/src/chruby-0.3.9"
 end
@@ -40,6 +56,7 @@ end
   "echo 'source /usr/local/share/chruby/auto.sh' >> .bashrc",
 ].each do |cmd|
   execute cmd do
+    not_if "ls /usr/local/share/chruby"
     user "moneta"
     cwd "/home/moneta"
   end
@@ -50,12 +67,38 @@ end
   "tar -xzvf ruby-install-0.7.1.tar.gz",
 ].each do |cmd|
   execute cmd do
+    not_if "ruby-install -V"
     user "moneta"
     cwd "/home/moneta/src"
   end
 end
 
 execute "make install" do
+  not_if "ruby-install -V"
   user "root"
   cwd "/home/moneta/src/ruby-install-0.7.1"
+end
+
+[
+  "curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -",
+  "echo 'deb https://dl.yarnpkg.com/debian/ stable main' | tee /etc/apt/sources.list.d/yarn.list",
+  "apt update"
+].each do |cmd|
+  execute cmd do
+    not_if "yarn --version | grep 1.22"
+    user "root"
+  end
+end
+
+package "yarn" do
+  user "root"
+end
+
+[
+  "npm install n -g",
+  "n stable",
+].each do |cmd|
+  execute cmd do
+    user "root"
+  end
 end
