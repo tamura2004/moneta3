@@ -1,13 +1,10 @@
-# useradd -m -s /bin/bash -p 1234 moneta
 # apt update
-# apt install git ruby sudo
-# gem install itamae
+# apt install -y git sudo
 # mkdir -p /home/moneta/project/rails
 # cd /home/moneta/project/rails
 # git clone https://github.com/tamura2004/moneta3
 # cd moneta3
-# itamae local recipe --dry-run
-# itamae local recipe
+# sudo bin/mitamae local recipe.rb
 
 packages = [
   "wget",
