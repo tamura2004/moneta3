@@ -14,7 +14,8 @@ packages = [
   "graphviz",
   "nodejs",
   "npm",
-  "curl"
+  "curl",
+  "tzdata"
 ]
 
 packages.each do |name|
@@ -36,24 +37,21 @@ end
   "tar -xzvf chruby-0.3.9.tar.gz",
 ].each do |cmd|
   execute cmd do
-    not_if "ls /usr/local/share/chruby"
+    not_if "test -e /home/moneta/src/chruby-0.3.9"
     user "moneta"
     cwd "/home/moneta/src"
   end
 end
 
 execute "make install" do
-  not_if "ls /usr/local/share/chruby"
+  not_if "test -e /usr/local/share/chruby"
   user "root"
   cwd "/home/moneta/src/chruby-0.3.9"
 end
 
-[
-  "echo 'source /usr/local/share/chruby/chruby.sh' >> .bashrc",
-  "echo 'source /usr/local/share/chruby/auto.sh' >> .bashrc",
-].each do |cmd|
-  execute cmd do
-    not_if "ls /usr/local/share/chruby"
+%w(chruby.sh auto.sh).each do |sh|
+  execute "echo 'source /usr/local/share/chruby/#{sh}' >> .bashrc" do
+    not_if "cat /home/moneta/.bashrc | grep #{sh}"
     user "moneta"
     cwd "/home/moneta"
   end
@@ -64,7 +62,7 @@ end
   "tar -xzvf ruby-install-0.7.1.tar.gz",
 ].each do |cmd|
   execute cmd do
-    not_if "ruby-install -V"
+    not_if "test -e /home/moneta/src/ruby-install-0.7.1"
     user "moneta"
     cwd "/home/moneta/src"
   end
@@ -96,6 +94,7 @@ end
   "n stable",
 ].each do |cmd|
   execute cmd do
+    not_if "node --version | grep v12"
     user "root"
   end
 end
