@@ -5,4 +5,6 @@ RUN apt-get update && apt-get install -y \
     git \
     sudo
 
-RUN useradd -m -s /bin/bash moneta
+RUN useradd -m -s /bin/bash moneta && \
+    usermod -G sudo moneta && \
+    echo "moneta ALL=NOPASSWD: ALL" >> /etc/sudoers
