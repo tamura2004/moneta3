@@ -2,11 +2,20 @@
   <div>
     <transition name="zoomout">
       <img
-        :src="src"
-        alt="くじ引き結果"
+        src="/kuji_ken1_ooatari.png"
+        alt="あたり"
         class="img-fluid zoomout"
-        @click="$emit('click')"
-        v-show="rank && dialog"
+        v-show="rank && rank <= 4 && dialog"
+        rel="preload"
+      >
+    </transition>
+    <transition name="zoomout">
+      <img
+        src="/kuji_ken3_hazure.png"
+        alt="はずれ"
+        class="img-fluid zoomout"
+        v-show="rank && rank > 4 && dialog"
+        rel="preload"
       >
     </transition>
   </div>
@@ -15,13 +24,6 @@
 <script>
 export default {
   props: ["rank", "dialog"],
-  computed: {
-    src() {
-      if (this.rank === null) return "";
-      if (this.rank <= 4) return "/kuji_ken1_ooatari.png";
-      return "/kuji_ken3_hazure.png";
-    }
-  },
 }
 </script>
 

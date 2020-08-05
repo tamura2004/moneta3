@@ -8,6 +8,7 @@ class Admin::IssuesController < ApplicationController
 
   def new
     @form = current_user.issues.build(state: @state)
+    @form.memo = "発生：\n条件：\nバグ：\n正常：\n"
   end
 
   def show
