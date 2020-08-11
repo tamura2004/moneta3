@@ -2,8 +2,8 @@
   <div id="app">
     <div class="container">
       <div class="jumbotron">
-        <h1>一つ選んでスクラッチしてください</h1>
-        <p>1口座100,000円です</p>
+        <h1>スクラッチしてください</h1>
+        <p>2回まで選ぶことができます</p>
       </div>
       <div class="row mb-4" v-for="row in 2" :key="row">
         <div class="col-3" v-for="col in 4" :key="col">
@@ -19,7 +19,6 @@
     <mdialog
       :rank="rank"
       :dialog="dialog"
-      @click="close"
     ></mdialog>
   </div>
 </template>
@@ -41,13 +40,10 @@ export default {
   },
   methods: {
     click(rank) {
-      this.selected = true;
+      this.selected = false;
       setTimeout(() => {this.rank = rank}, 1000);
-      setTimeout(this.close, 2000);
+      setTimeout(() => {this.rank = null}, 2000);
     },
-    close() {
-      this.dialog = false;
-    }
   }
 }
 </script>

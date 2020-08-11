@@ -1,7 +1,7 @@
 <template>
   <div @click="click" class="h-100">
     <transition name="flip" mode="out-in">
-      
+
       <div class="card h-100 text-center" key="front" v-if="front">
         <div class="card-body">
           <h2 class="card-title">{{rank}}等</h2>
@@ -23,19 +23,19 @@
 
 <script>
 export default {
-  props: ["selected"],
+  props: ["selected","row","col"],
   data() {
     return {
       front: false,
       rank: null,
       money: null,
+      mask: null,
     }
   },
   methods: {
     click() {
       if (!this.selected && !this.front) {
         const MAX = 8;
-        this.rank = MAX - Math.floor(Math.random() * Math.random() * MAX);
         this.money = Math.pow(10, MAX + 2 - this.rank);
         if (100000000 <= this.money) this.money = `${this.money / 100000000}億`
         if (10000 <= this.money) this.money = `${this.money / 10000}万`
@@ -43,6 +43,10 @@ export default {
       }
       this.$emit("click", this.rank);
     }
+  },
+  created() {
+    this.mask = Math.floor((new Date()).getTime() / 1000) % 8;
+    this.rank = ((this.col * 2 + this.row - 3) ^ this.mask) + 1;
   }
 }
 </script>

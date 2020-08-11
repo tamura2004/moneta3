@@ -1,5 +1,5 @@
 desc "watch code"
-task :watch do
+task :watch => :environment do
   puts "start watching."
   listener = Listen.to("code/ruby") do |mod,add,del|
     mod.each do |file|
