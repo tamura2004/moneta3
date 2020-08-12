@@ -1,2 +1,9 @@
-# setup
-https://gist.github.com/tamura2004/1b68d496942e11de4fe9c0eca444deb6
+# deploy
+
+- aws/ec2起動、ubuntu20.04
+- sudo apt update && sudo apt install docker.io
+- docker pull tamura/moneta3
+- docker run --name moneta3 -p 3000:3000 -d tamura/moneta3
+- docker exec moneta3 /bin/bash
+- rails db:migrate
+- rails db:seed_fu
