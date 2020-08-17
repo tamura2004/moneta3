@@ -18,6 +18,15 @@ task :watch => :environment do
     end
   end
   listener.start
+  listener2 = Listen.to("code/javascript") do |mod,add,del|
+    mod.each do |file|
+      next unless File.extname(file) == ".js"
+      puts "\n"
+      puts ["-" * 10, Time.now, "-" * 60].join(" ")
+      puts `node #{file}`
+    end
+  end
+  listener2.start
   trap('SIGINT') { exit }
   sleep
 end
