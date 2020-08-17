@@ -12,6 +12,7 @@ class LotteriesController < ApplicationController
       branch: branch
     )
     @account.deposit(amount)
+    # @form = TransferForm.new
   end
 
   private
