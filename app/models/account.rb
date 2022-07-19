@@ -32,9 +32,9 @@ class Account < ApplicationRecord
 
   validates :number, presence: true
 
-  delegate :name, :is_debit, :rate, :currency, :minus_limit, to: :product
+  delegate :name, :is_debit, :is_fixed, :rate, :currency, :minus_limit, to: :product
 
-  scope :settlement, -> { joins(:product).where.not("products.is_fixed or products.is_credit") }
+  scope :settlement, -> { joins(:product).where.not("products.is_fixed or products.is_debit") }
   scope :not_fixed, -> { joins(:product).where.not("products.is_fixed") }
 
   def fullname
@@ -51,11 +51,18 @@ class Account < ApplicationRecord
     Statement.create(amount: money, account_id: id, memo: memo)
   end
 
+  def interest(money, memo = "利息")
+    update(amount: amount + money)
+    Statement.create(amount: money, account_id: id, memo: memo)
+  end
+
   def kaiyaku
     return "クレジットカードは解約できません" if users.present?
     return "決済口座は解約できません" if accounts.present?
     return "決済口座がありません" unless account
-    account.deposit(amount)
+    return "#{name}は期限まで解約できません" if is_fixed
+    sign = is_debit ? -1 : 1 # 借入なら決済口座の金額を減らす
+    account.deposit(sign * amount, name)
     destroy
     return nil
   end

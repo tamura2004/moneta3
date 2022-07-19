@@ -1,6 +1,6 @@
 .row: .col-md-6.offset-md-3
   .jumbotron
-    h1 = "#{@form.product.name}開設"
+    h1 = "#{@form.product.name}#{@form.product.is_debit ? '借入' : '開設'}"
     hr.my-8
     = bootstrap_form_with @form do |f|
       = f.bs_select :branch_id, @form.branches
@@ -11,4 +11,3 @@
       = f.hidden_field :product_id
       = f.hidden_field :user_id
       = f.submit "登録する", class: "btn btn-primary"
-
