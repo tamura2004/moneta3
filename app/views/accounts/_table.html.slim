@@ -15,17 +15,24 @@ table.table
         td.col-2 = account.branch&.name
         td.col-2 = account.name
         td.col-2 = account.number
-        td.col-2: .float-right = number_to_currency(account.amount)
+        - if account.product.currency == "JPY"
+          td.col-2: .float-right = number_to_currency(account.amount)
+        - else
+          td.col-2: .float-right = number_to_currency(account.amount / 130, format: "%u%n", unit: "$")
         td.col-4
           .btn-toolbar.float-right[role="toolbar"]
             .btn-group.mr-1[role="group"]
               = link_to "明細", account_statements_path(account), class: "btn btn-sm btn-secondary"
+            - if !account.product.is_debit
+              .btn-group.mr-1[role="group"]
+                = form_with model: @form, url: :bank_transfer, local: true do |f|
+                  = f.hidden_field :from_id, value: account.id
+                  = f.submit "振込", class: "btn btn-sm btn-secondary"
             .btn-group.mr-1[role="group"]
-              = form_with model: @form, url: :bank_transfer, local: true do |f|
-                = f.hidden_field :from_id, value: account.id
-                = f.submit "振込", class: "btn btn-sm btn-secondary"
-            .btn-group.mr-1[role="group"]
-              = link_to "解約", account_path(account), class: "btn btn-sm btn-danger", method: :delete
+              - if account.product.is_debit
+                = link_to "返済", account_path(account), class: "btn btn-sm btn-danger", method: :delete
+              - else
+                = link_to "解約", account_path(account), class: "btn btn-sm btn-danger", method: :delete
   tbody
     tr.d-flex
       th.col-2

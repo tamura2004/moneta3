@@ -13,5 +13,8 @@ table.table
       tr.d-flex
         td.col-3 = statement.created_at.to_s
         td.col-3 = statement.amount > 0 ? "入金" : "出金"
-        td.col-3 = number_to_currency statement.amount
+        - if statement.account.product.currency == "JPY"
+          td.col-3 = number_to_currency(statement.amount)
+        - else
+          td.col-3 = number_to_currency(statement.amount / 130, format: "%u%n", unit: "$")
         td.col-3 = statement.memo

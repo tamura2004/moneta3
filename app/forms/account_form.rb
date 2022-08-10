@@ -16,13 +16,17 @@ class AccountForm
 
   def amount_less
     return unless payment
+    return if product.is_debit
+    return if payment&.product&.is_credit
+
     if payment.amount + payment.minus_limit < amount
       errors.add :amount, "残高が不足しています"
     end
   end
 
+  # 決済口座
   def accounts
-    user.accounts.not_fixed.map{|v|[v.fullname, v.id]}
+    user.accounts.settlement.map { |v| [v.fullname, v.id] }
   end
 
   def branches
@@ -32,7 +36,20 @@ class AccountForm
   def save
     return false if invalid?
     if deposit.save && payment
-      payment.withdrow(amount) && deposit.deposit(amount)
+      sign = product.is_debit ? -1 : 1 # 借入なら金額を増やす
+      memo = "#{deposit.product.name}への支払い"
+
+      # withdrow = 支払い
+      # deposit = 入金
+      payment.withdrow(sign * amount, memo) && deposit.deposit(amount)
+
+      # 金利(rate), 利息(interest)
+      if product.rate > 0
+        interest = amount * product.rate / 100
+        memo = "利息（#{product.rate}％）"
+        deposit.interest(interest, memo)
+      end
+      true
     else
       false
     end

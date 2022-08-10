@@ -3,7 +3,7 @@ const { log } = console;
 
 for (let i = 1; i <= 10; i++) {
   stdout.write(`${i} little `);
-  if (i % 3 === 0) log("indians.");
+  if (i % 3 === 0) log("pumpkins.");
 }
 
-log("indian boys.");
+log("pumpkin pies.");
