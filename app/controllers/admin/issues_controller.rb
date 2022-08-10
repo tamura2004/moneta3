@@ -21,7 +21,7 @@ class Admin::IssuesController < ApplicationController
   def create
     @form = Issue.new(issue_params)
     if @form.save
-      redirect_to admin_state_issues_url(@state)
+      redirect_to issues_url(@state)
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Admin::IssuesController < ApplicationController
 
   def update
     if @issue.update(issue_params)
-      redirect_to admin_state_issues_url(@issue.state)
+      redirect_to issue_url(@issue.state, @issue.id)
     else
       render :edit
     end

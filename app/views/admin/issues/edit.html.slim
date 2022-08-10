@@ -2,7 +2,7 @@
   h1 バグ報告
   p = current_user.name
   hr.my-8
-  = bootstrap_form_with @issue do |f|
+  = form_with model: @issue, url: issue_path, builder: BootstrapFormBuilder do |f|
     = f.hidden_field :user_id
     = f.bs_select :state_id, State.pluck(:name, :id)
     = f.text_field :name
