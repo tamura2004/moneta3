@@ -38,7 +38,11 @@ class Admin::IssuesController < ApplicationController
   private
 
   def set_state
-    @state = State.find(params[:state_id])
+    if params[:issue].nil?
+      @state = State.find(params[:state_id])
+    else
+      @state = State.find(params[:issue][:state_id])
+    end
   end
 
   def set_issue
