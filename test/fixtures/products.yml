@@ -16,8 +16,8 @@
 
 creditcard:
   name: クレジットカード
-  rate: 9.99
-  currency: MyString
+  rate: 15.0
+  currency: JPY
   is_debit: false
   is_credit: true
   is_fixed: false

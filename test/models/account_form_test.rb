@@ -21,11 +21,16 @@
 #  index_accounts_on_product_id  (product_id)
 #  index_accounts_on_user_id     (user_id)
 #
-require 'test_helper'
+require "test_helper"
 
 class AccountFormTest < ActiveSupport::TestCase
   setup do
-    @form = AccountForm.new(account_id: accounts(:one).id)
+    @form = AccountForm.new.tap do |form|
+      form.amount = 1000000
+      form.user_id = users(:akagi).id
+      form.product_id = products(:creditcard).id
+      form.account_id = accounts(:one).id
+    end
   end
 
   test "適正である" do
@@ -35,13 +40,6 @@ class AccountFormTest < ActiveSupport::TestCase
   test "決済元口座が必要" do
     @form.account_id = nil
     assert @form.invalid?
-  end
-
-  test "残高不足" do
-    a = accounts(:one)
-    @form.amount = a.amount + a.minus_limit + 1 # １円だけ不足
-    assert @form.invalid?
-    assert_includes @form.errors.messages[:amount], "残高が不足しています"
   end
 
   test "残高不足ではない" do
@@ -85,7 +83,7 @@ class AccountFormTest < ActiveSupport::TestCase
     @form.amount = 1000
     @form.product_id = products(:futsu).id
 
-    assert_difference "@form.deposit.amount", 1000 do
+    assert_difference "@form.deposit.amount", 1099 do
       assert @form.save
     end
   end
