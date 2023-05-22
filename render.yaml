@@ -1,0 +1,19 @@
+databases:
+        - name: moneta3
+          databaseName: moneta3
+          user: moneta3
+
+services:
+        - type: web
+          name: moneta3
+          env: ruby
+          buildCommand: "./bin/render-build.sh"
+          startCommand: "bundle exec puma -C config/puma.rb"
+          envVars:
+                  - key: DATABASE_URL
+                    fromDatabase:
+                            name: moneta3
+                            property: connectionString
+                  - key: RAILS_MASTER_KEY
+                    sync: false
+                            
