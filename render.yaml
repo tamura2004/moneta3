@@ -1,6 +1,6 @@
 databases:
         - name: moneta3
-          databaseName: moneta3
+          databaseName: moneta3_production
           user: moneta3
 
 services:
@@ -12,7 +12,7 @@ services:
           envVars:
                   - key: DATABASE_URL
                     fromDatabase:
-                            name: moneta3
+                            name: moneta3_production
                             property: connectionString
                   - key: RAILS_MASTER_KEY
                     sync: false
