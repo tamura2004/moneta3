@@ -25,7 +25,5 @@ production:
   encoding: unicode
   database: moneta3_production
   pool: 5
-  username: <%= ENV.fetch("DATABASE_USER") { "ubuntu" } %>
-  password: <%= ENV.fetch("DATABASE_PASSWD") { "ubuntu" } %>
-  host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
-  port: 5432
+  username: moneta3
+  url: <%= ENV['DATABASE_URL'] %>

@@ -26,20 +26,29 @@ require "test_helper"
 class AccountFormTest < ActiveSupport::TestCase
   setup do
     @form = AccountForm.new.tap do |form|
-      form.amount = 1000000
-      form.user_id = users(:akagi).id
-      form.product_id = products(:creditcard).id
+      form.number = 12345678
+      form.amount = 1_000_000
+      form.start_date = Date.new(2022, 8, 1)
+      form.end_date = Date.new(2023, 8, 1)
       form.account_id = accounts(:one).id
+      form.product_id = products(:creditcard).id
+      form.branch_id = branches(:one).id
+      form.user_id = users(:akagi).id
     end
+  end
+
+  test "取引金額なしは不正" do
+    @form.amount = nil
+    assert @form.invalid?
+  end
+
+  test "開設口座情報なしは不正" do
+    @form.account_id = nil
+    assert @form.invalid?
   end
 
   test "適正である" do
     assert @form.valid?
-  end
-
-  test "決済元口座が必要" do
-    @form.account_id = nil
-    assert @form.invalid?
   end
 
   test "残高不足ではない" do
