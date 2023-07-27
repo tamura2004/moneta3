@@ -1,3 +1,4 @@
+# ログイン情報フォーム
 class SessionForm
   include ActiveModel::Model
   include ActiveModel::Attributes
@@ -13,12 +14,16 @@ class SessionForm
   validate :user_presence
   validate :password_valid
 
+  # ログインID存在チェック
+  #
+  # @return [Boolean]
   def user_presence
     if !user
       errors.add(:id_name, "が存在しません")
     end
   end
 
+  # パスワードチェック
   def password_valid
     if password.to_i ^ 1234 != user&.masked_password
       errors.add(:password, "が違います")

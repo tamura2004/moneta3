@@ -1,3 +1,4 @@
+# 利用者情報入力フォーム
 class UserForm
   include ActiveModel::Model
   include ActiveModel::Attributes
@@ -17,6 +18,7 @@ class UserForm
   validates :kana_name, format: { with: /\A\p{hiragana}+\z/, message: "ひらがなで入力して下さい" }
   validates :credit_number, format: { with: /\A(\d{4}\-){2}\d{4}\z/, message: "不正な番号です" }
 
+  # 利用者情報登録
   def save
     return false if invalid?
     user = User.new(user_params)
@@ -30,6 +32,7 @@ class UserForm
     end
   end
 
+  # 最初のクレジットカード（現金代わり）
   def card
     return @card if @card
     product = Product.find_by(name: "クレジットカード")

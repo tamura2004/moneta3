@@ -19,13 +19,41 @@
 #
 #  account_id  (account_id => accounts.id)
 #
+# 利用者モデル
+#
+# @attribute id [Integer] レコードの主キー
+# @attribute id_name [String] ログインID
+# @attribute kana_name [String] かな氏名
+# @attribute masked_password [Integer] マスク化パスワード
+# @attribute name [String] 氏名
+# @attribute created_at [DateTime] レコードの作成時刻
+# @attribute updated_at [DateTime] レコードの更新時刻
+# @attribute account_id [Integer] 主口座
+#
+# Indexes
+#
+#  index_users_on_account_id  (account_id)
+#
+# Foreign Keys
+#
+#  account_id  (account_id => accounts.id)
+#
 class User < ApplicationRecord
+  # 一つの主口座を持つ
   belongs_to :account
+
+  # 複数の口座を持つ
   has_many :accounts, dependent: :destroy
+
+  # 複数の課題を持つ（開発者用）
   has_many :issues, dependent: :destroy
 
+  # ログインID、氏名、マスク化パスワードは空であってはならない
   validates :id_name, :name, :masked_password, presence: true
 
+  # 口座開設入力フォームを生成
+  #
+  # @return [AccountForm]
   def account_form(product)
     AccountForm.new.tap do |form|
       form.user_id = id

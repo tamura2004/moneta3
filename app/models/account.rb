@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: accounts
+# Table name: accounts（口座）
 #
 #  id         :integer          not null, primary key
 #  amount     :integer          default(0)
@@ -21,41 +21,99 @@
 #  index_accounts_on_product_id  (product_id)
 #  index_accounts_on_user_id     (user_id)
 #
+# 口座モデル
+#
+# @author tamura2004@gmail.com
+# @attribute id [Integer] 口座レコードの主キー
+# @attribute amount [Integer] 残高
+# @attribute end_date [DateTime] 満期日
+# @attribute number [Integer] 口座番号
+# @attribute start_date [Integer] 預入日
+# @attribute created_at [DateTime] レコード作成時刻
+# @attribute updated_at [DateTime] レコード更新時刻
+# @attribute account_id [Integer] 決済元口座（親口座）の主キー
+# @attribute branch_id [Integer] 支店の主キー
+# @attribute product_id [Integer] 金融商品の主キー
+# @attribute user_id [Integer] 利用者の主キー
 class Account < ApplicationRecord
+  # 一つの支店を持つが、空でも良い
   belongs_to :branch, optional: true
+
+  # 一つの利用者を持つが、空でも良い
   belongs_to :user, optional: true
+
+  # 一つの金融商品を必ず持つ
   belongs_to :product
+
+  # 一つの口座を決済口座として持つが、空でも良い
   belongs_to :account, optional: true
+
+  # 複数の明細を持つ。口座が削除されるとき、明細もすべて削除される。
   has_many :statements, dependent: :destroy
+
+  # 複数の利用者を持つ、口座が削除されるとき、利用者もすべて削除される。
   has_many :users, dependent: :destroy
+
+  # 自身を決済口座とする複数の口座を持つ
   has_many :accounts, dependent: :destroy
 
+  # 口座番号は空ではいけない
   validates :number, presence: true
 
+  # 処理を金融商品に移譲
   delegate :name, :is_debit, :is_fixed, :rate, :currency, :minus_limit, to: :product
 
+  # 決済口座として使用できるか
+  #
+  # @return [Boolean] 決済口座として使用できるか（固定性預金でなく借入でない）
   scope :settlement, -> { joins(:product).where.not("products.is_fixed or products.is_debit") }
+
+  # 固定性預金ではないか
+  #
+  # @return [Boolean] 固定性預金ではない
   scope :not_fixed, -> { joins(:product).where.not("products.is_fixed") }
 
+  # 表示名
+  #
+  # @return [String] 科目名＋口座番号を返す
+  # @example "普通 0123456"
   def fullname
     product.name + " " + number
   end
 
+  # 出金処理
+  #
+  # @param money [Integer] 出金額
+  # @param memo [String] 適用
+  # @return [ActiveRecord::Base] 取引明細レコード
   def withdrow(money, memo = "出金")
     update(amount: amount - money)
     Statement.create(amount: money, account_id: id, memo: memo)
   end
 
+  # 入金処理
+  #
+  # @param money [Integer] 入金額
+  # @param memo [String] 適用
+  # @return [ActiveRecord::Base] 取引明細レコード
   def deposit(money, memo = "入金")
     update(amount: amount + money)
     Statement.create(amount: money, account_id: id, memo: memo)
   end
 
+  # 利息付与処理
+  #
+  # @param money [Integer] 利息額
+  # @param memo [String] 適用
+  # @return [ActiveRecord::Base] 取引明細レコード
   def interest(money, memo = "利息")
     update(amount: amount + money)
     Statement.create(amount: money, account_id: id, memo: memo)
   end
 
+  # 解約処理
+  #
+  # @return [Nil] nil
   def kaiyaku
     return "クレジットカードは解約できません" if users.present?
     return "決済口座は解約できません" if accounts.present?
