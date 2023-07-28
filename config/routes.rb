@@ -186,6 +186,8 @@
 #                  rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
+  get 'currency/index'
+  get 'currency/show'
   root to: "pages#show", id: 1
 
   resources :lotteries
@@ -194,6 +196,7 @@ Rails.application.routes.draw do
   resources :questions
   resources :sessions
   resources :users
+  resources :currencies
 
   resources :accounts, except: :new do
     resources :statements

@@ -1,0 +1,21 @@
+- sum = 0
+table.table
+  thead
+    tr.d-flex
+      th.col-2[scope="col"] 通貨
+      th.col-2[scope="col"] 略称
+      th.col-2[scope="col"] レート(円)
+      th.col-4[scope="col"] 更新時刻
+      th.col-2[scope="col"]
+  tbody
+    - @currencies.each do |currency|
+      - if currency.name != "JPY"
+        tr.d-flex
+          td.col-2 = currency.description
+          td.col-2 = currency.name
+          td.col-2 = sprintf("￥%0.2f",currency.rates.last.rate)
+          td.col-4 = currency.rates.last.changed_at
+          td.col-2
+            .btn-toolbar.float-right[role="toolbar"]
+              .btn-group.mr-1[role="group"]
+                = link_to "選択", url_for(currency), class: "btn btn-sm btn-primary"

@@ -5,13 +5,13 @@ pages = {
     {
       title: "口座開設",
       pages: [
-        { title: "普通預金", path: "/products/1/accounts/new", },
-        { title: "定期預金", path: "/products/2/accounts/new", },
-        { title: "外貨預金", path: "/products/3/accounts/new" },
+        { title: "普通預金", path: "/products/1/accounts/new" },
+        { title: "定期預金", path: "/products/2/accounts/new" },
+        { title: "外貨預金", path: "/currencies" },
         { title: "投資信託", path: "/products/4/accounts/new" },
-        { title: "国債", path: "/products/5/accounts/new" },
+        { title: "国債", path: "/products/15/accounts/new" },
         { title: "スピードくじ", path: "/lotteries" },
-      ]
+      ],
     },
     {
       title: "残高・入出金明細",
@@ -28,7 +28,7 @@ pages = {
         { title: "住宅ローン", path: "/products/8/accounts/new" },
         { title: "学資ローン", path: "/products/9/accounts/new" },
         { title: "フリーローン", path: "/products/10/accounts/new" },
-      ]
+      ],
     },
     {
       title: "お問い合わせ",
@@ -40,10 +40,10 @@ pages = {
         {
           title: "バグ報告",
           path: "/admin/state/1/issues",
-        }
-      ]
+        },
+      ],
     },
-  ]
+  ],
 }
 
 $id = 1

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: accounts（口座）
+# Table name: accounts
 #
 #  id         :integer          not null, primary key
 #  amount     :integer          default(0)
@@ -21,20 +21,6 @@
 #  index_accounts_on_product_id  (product_id)
 #  index_accounts_on_user_id     (user_id)
 #
-# 口座モデル
-#
-# @author tamura2004@gmail.com
-# @attribute id [Integer] 口座レコードの主キー
-# @attribute amount [Integer] 残高
-# @attribute end_date [DateTime] 満期日
-# @attribute number [Integer] 口座番号
-# @attribute start_date [Integer] 預入日
-# @attribute created_at [DateTime] レコード作成時刻
-# @attribute updated_at [DateTime] レコード更新時刻
-# @attribute account_id [Integer] 決済元口座（親口座）の主キー
-# @attribute branch_id [Integer] 支店の主キー
-# @attribute product_id [Integer] 金融商品の主キー
-# @attribute user_id [Integer] 利用者の主キー
 class Account < ApplicationRecord
   # 一つの支店を持つが、空でも良い
   belongs_to :branch, optional: true

@@ -19,25 +19,6 @@
 #
 #  account_id  (account_id => accounts.id)
 #
-# 利用者モデル
-#
-# @attribute id [Integer] レコードの主キー
-# @attribute id_name [String] ログインID
-# @attribute kana_name [String] かな氏名
-# @attribute masked_password [Integer] マスク化パスワード
-# @attribute name [String] 氏名
-# @attribute created_at [DateTime] レコードの作成時刻
-# @attribute updated_at [DateTime] レコードの更新時刻
-# @attribute account_id [Integer] 主口座
-#
-# Indexes
-#
-#  index_users_on_account_id  (account_id)
-#
-# Foreign Keys
-#
-#  account_id  (account_id => accounts.id)
-#
 class User < ApplicationRecord
   # 一つの主口座を持つ
   belongs_to :account

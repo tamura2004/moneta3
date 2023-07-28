@@ -1,0 +1,9 @@
+.jumbotron: .row
+  .col-10
+    h1 取扱通貨
+  .col-2
+    = image_tag "money_satsutaba.png", size: "100", style: "margin: -20px", class: "align-self-center"
+
+.container
+  h2 一覧
+  = render partial: "table", locals: { currency: @currencies }

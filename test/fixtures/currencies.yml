@@ -1,0 +1,27 @@
+# == Schema Information
+#
+# Table name: currencies
+#
+#  id          :integer          not null, primary key
+#  description :string
+#  name        :string
+#  rate_max    :float
+#  rate_min    :float
+#  symbol      :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+one:
+  name: MyString
+  description: MyString
+  rate_max: 1.5
+  rate_min: 1.5
+  symbol: MyString
+
+two:
+  name: MyString
+  description: MyString
+  rate_max: 1.5
+  rate_min: 1.5
+  symbol: MyString

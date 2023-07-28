@@ -1,0 +1,21 @@
+.jumbotron
+  .row
+    .col-10
+      h1 外国為替相場チャート表
+    .col-2
+      = image_tag "money_satsutaba.png", size: "100", style: "margin: -20px", class: "align-self-center"
+
+.container
+  - @data = @currency.rates.pluck(:changed_at, :rate)
+  .row.d-flex.align-items-end
+    .col-4
+      h1.display-5 = "#{@currency.description}/円"
+    .col-4.text-center
+      h2 = sprintf("%0.2f円", @currency.rates.last.rate)
+    .col-4.text-right
+      p = @currency.rates.last.changed_at.strftime("%Y年%m月%d日 %H:%M時点")
+  = line_chart @data, curve: false, points: false, prefix: "￥", download: true
+  hr
+  .row.d-flex.align-items-end
+    .col-12.text-right
+      = link_to "口座開設", new_product_account_path(product_id: 3, currency: @currency.name), class: "btn btn-large btn-primary"

@@ -8,3 +8,15 @@
 - @pages.each_slice(3) do |cards|
   .row.mb-4
     = render partial: "card", collection: cards
+
+- @data = Currency.find_by(name: "USD").rates.pluck(:changed_at, :rate)
+hr
+
+.row.d-flex.align-items-end
+  .col-4
+    h1.display-5 = "米ドル/円"
+  .col-4.text-center
+    h2 = "#{sprintf("%0.2f",@data[-1][1])}円"
+  .col-4.text-right
+    p = @data[-1][0].strftime("%Y年%m月%d日 %H:%M") + "時点"
+= line_chart @data, curve: false, points: false, prefix: "￥", download: true
