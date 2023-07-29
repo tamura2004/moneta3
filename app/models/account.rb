@@ -2,24 +2,26 @@
 #
 # Table name: accounts
 #
-#  id         :integer          not null, primary key
-#  amount     :integer          default(0)
-#  end_date   :date
-#  number     :string           not null
-#  start_date :date
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  account_id :integer
-#  branch_id  :integer
-#  product_id :integer
-#  user_id    :integer
+#  id          :integer          not null, primary key
+#  amount      :integer          default(0)
+#  end_date    :date
+#  number      :string           not null
+#  start_date  :date
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  account_id  :integer
+#  branch_id   :integer
+#  currency_id :integer
+#  product_id  :integer
+#  user_id     :integer
 #
 # Indexes
 #
-#  index_accounts_on_account_id  (account_id)
-#  index_accounts_on_branch_id   (branch_id)
-#  index_accounts_on_product_id  (product_id)
-#  index_accounts_on_user_id     (user_id)
+#  index_accounts_on_account_id   (account_id)
+#  index_accounts_on_branch_id    (branch_id)
+#  index_accounts_on_currency_id  (currency_id)
+#  index_accounts_on_product_id   (product_id)
+#  index_accounts_on_user_id      (user_id)
 #
 class Account < ApplicationRecord
   # 一つの支店を持つが、空でも良い
@@ -30,6 +32,9 @@ class Account < ApplicationRecord
 
   # 一つの金融商品を必ず持つ
   belongs_to :product
+
+  # 一つの通貨に属する
+  belongs_to :currency
 
   # 一つの口座を決済口座として持つが、空でも良い
   belongs_to :account, optional: true
@@ -47,7 +52,7 @@ class Account < ApplicationRecord
   validates :number, presence: true
 
   # 処理を金融商品に移譲
-  delegate :name, :is_debit, :is_fixed, :rate, :currency, :minus_limit, to: :product
+  delegate :name, :is_debit, :is_fixed, :rate, :minus_limit, to: :product
 
   # 決済口座として使用できるか
   #
@@ -106,7 +111,7 @@ class Account < ApplicationRecord
     return "決済口座がありません" unless account
     return "#{name}は期限まで解約できません" if is_fixed
     sign = is_debit ? -1 : 1 # 借入なら決済口座の金額を減らす
-    account.deposit(sign * amount, name)
+    account.deposit(sign * amount * currency.rates.last.rate, name)
     destroy
     return nil
   end

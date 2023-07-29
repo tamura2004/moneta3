@@ -10,6 +10,7 @@ class CreateAccounts < ActiveRecord::Migration[6.0]
       t.references :branch
       t.references :user
       t.references :account
+      t.references :currency
       t.timestamps
     end
   end

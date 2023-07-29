@@ -18,6 +18,7 @@ class LotteriesController < ApplicationController
       number: "%07d" % rand(1000000..9999999),
       account: current_user.account,
       branch: branch,
+      currency: Currency.find_by(name: "JPY")
     )
     @account.deposit(amount)
     # @form = TransferForm.new

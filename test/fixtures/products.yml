@@ -3,7 +3,6 @@
 # Table name: products
 #
 #  id          :integer          not null, primary key
-#  currency    :string           default("JPY")
 #  is_credit   :boolean          default(FALSE)
 #  is_debit    :boolean          default(FALSE)
 #  is_fixed    :boolean          default(FALSE)

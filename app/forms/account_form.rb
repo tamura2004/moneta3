@@ -11,6 +11,7 @@ class AccountForm
   attribute :product_id, :integer # 商品ID（内部情報）
   attribute :branch_id, :integer # 支店ID（内部情報）
   attribute :user_id, :integer # お客様ID（内部情報）
+  attribute :currency_id, :integer # 通貨ID（内部情報）
 
   validates :amount, :account_id, presence: true # 取引金額と口座IDは必須項目
   validate :amount_less
@@ -21,7 +22,7 @@ class AccountForm
     return if product.is_debit
     return if payment&.product&.is_credit
 
-    if payment.amount + payment.minus_limit < amount
+    if payment.amount + payment.minus_limit < amount * rate
       errors.add :amount, "残高が不足しています"
     end
   end
@@ -47,14 +48,18 @@ class AccountForm
 
       # withdrow = 支払い
       # deposit = 入金
-      payment.withdrow(sign * amount, memo) && deposit.deposit(amount)
+      # rate = 為替交換レート
+      payment.withdrow(sign * amount * rate, memo) && deposit.deposit(amount)
+
+      # rateを金利と為替交換レートの両方に使用しているため、後ほど混乱の懸念あり
+      # TODO: 金利 = deposit_intrest_rate 為替交換レート = exchange_rateに書き直す
 
       # 金利(rate), 利息(interest)
-      if product.rate > 0
-        interest = amount * product.rate / 100
-        memo = "利息（#{product.rate}％）"
-        deposit.interest(interest, memo)
-      end
+      # if product.rate > 0
+      #   interest = amount * product.rate / 100
+      #   memo = "利息（#{product.rate}％）"
+      #   deposit.interest(interest, memo)
+      # end
       true
     else
       false
@@ -63,7 +68,7 @@ class AccountForm
 
   # 入力画面からパラメーター（＝入力内容）を受け取る
   def account_param
-    @account_param ||= attributes.symbolize_keys.extract!(:number, :amount, :start_date, :end_date, :product_id, :account_id, :user_id, :branch_id)
+    @account_param ||= attributes.symbolize_keys.extract!(:number, :amount, :start_date, :end_date, :product_id, :account_id, :user_id, :branch_id, :currency_id)
   end
 
   # 作成口座（預入=deposit）
@@ -84,5 +89,15 @@ class AccountForm
   # 利用ユーザー
   def user
     @user ||= User.find_by(id: user_id)
+  end
+
+  # 通貨
+  def currency
+    @currency = currency_id ? Currency.find(currency_id) : Currency.find_by(name: "JPY")
+  end
+
+  # 為替レート
+  def rate
+    @rate = currency.rates.last.rate
   end
 end

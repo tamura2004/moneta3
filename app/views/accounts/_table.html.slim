@@ -5,21 +5,23 @@ table.table
       th.col-2[scope="col"] 支店名
       th.col-2[scope="col"] 商品名
       th.col-2[scope="col"] 口座番号
+      th.col-1[scope="col"] 通貨
       th.col-2[scope="col"]
        .float-right 残高
-      th.col-4[scope="col"]
+      th.col-3[scope="col"]
   tbody
     - accounts.each do |account|
-      - sum += account.amount
+      - sum += account.amount * account.currency.rates.last.rate
       tr.d-flex
         td.col-2 = account.branch&.name
         td.col-2 = account.name
         td.col-2 = account.number
-        - if account.product.currency == "JPY"
+        td.col-1 = account.currency.description
+        - if account.currency.name == "JPY"
           td.col-2: .float-right = number_to_currency(account.amount)
         - else
-          td.col-2: .float-right = number_to_currency(account.amount / 130, format: "%u%n", unit: "$")
-        td.col-4
+          td.col-2: .float-right = number_to_currency(account.amount, format: "%u%n", unit: account.currency.symbol)
+        td.col-3
           .btn-toolbar.float-right[role="toolbar"]
             .btn-group.mr-1[role="group"]
               = link_to "明細", account_statements_path(account), class: "btn btn-sm btn-secondary"
@@ -38,6 +40,7 @@ table.table
       th.col-2
       th.col-2
       th.col-2 合計
+      th.col-1
       th.col-2
         .float-right = number_to_currency(sum)
-      th.col-4
+      th.col-3

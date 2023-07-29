@@ -1,6 +1,7 @@
 class BootstrapFormBuilder < ActionView::Helpers::FormBuilder
   def text_field(attribute, options={})
-    name = object.class.human_attribute_name(attribute)
+    # 明示的にオプションでラベル指定がなければ、config/locale/jp.ymlから持ってくる
+    name = options[:label] || object.class.human_attribute_name(attribute)
 
     @template.content_tag(:div, class: "form-group") do
       label(name) +

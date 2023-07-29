@@ -21,10 +21,12 @@ ActiveRecord::Schema.define(version: 2023_07_28_063317) do
     t.integer "branch_id"
     t.integer "user_id"
     t.integer "account_id"
+    t.integer "currency_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_accounts_on_account_id"
     t.index ["branch_id"], name: "index_accounts_on_branch_id"
+    t.index ["currency_id"], name: "index_accounts_on_currency_id"
     t.index ["product_id"], name: "index_accounts_on_product_id"
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
@@ -81,7 +83,6 @@ ActiveRecord::Schema.define(version: 2023_07_28_063317) do
 
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
-    t.string "currency", default: "JPY"
     t.decimal "rate"
     t.integer "minus_limit", default: 0
     t.boolean "is_debit", default: false

@@ -3,7 +3,7 @@
 # @author tamuta2004@gmail.com
 class AccountsController < ApplicationController
   # 新規処理の前にset_productを呼ぶ
-  before_action :set_product, only: [:new]
+  before_action :set_product, :set_currency, only: [:new]
 
   # 個別表示、解約処理の前に、set_account処理を呼ぶ
   before_action :set_account, only: [:show, :destroy]
@@ -54,8 +54,13 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:id])
   end
 
+  # 通貨情報を取得
+  def set_currency
+    @currency = Currency.find_by(name: params[:currency]) || Currency.find_by(name: "JPY")
+  end
+
   # 口座パラメータを取得
   def accout_param
-    params.require(:account_form).permit(:amount, :start_date, :end_date, :user_id, :branch_id, :product_id, :account_id)
+    params.require(:account_form).permit(:amount, :start_date, :end_date, :user_id, :branch_id, :product_id, :account_id, :currency_id)
   end
 end

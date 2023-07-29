@@ -3,19 +3,26 @@
 table.table
   thead
     tr.d-flex
-      th.col-3[scope="col"] 支店名
-      th.col-3[scope="col"] 商品名
-      th.col-3[scope="col"] 口座番号
-      th.col-2[scope="col"] 残高
-      th.col-1[scope="col"]
+      th.col-2[scope="col"] 支店名
+      th.col-2[scope="col"] 商品名
+      th.col-2[scope="col"] 口座番号
+      th.col-1[scope="col"] 通貨
+      th.col-2[scope="col"]
+        .float-right 残高
+      th.col-3[scope="col"]
   tbody
     - @accounts.each do |account|
       tr.d-flex
-        td.col-3 = account.branch&.name
-        td.col-3 = account.name
-        td.col-3 = account.number
-        td.col-2 = account.amount
-        td.col-1
+        td.col-2 = account.branch&.name
+        td.col-2 = account.name
+        td.col-2 = account.number
+        td.col-1 = account.currency.description
+        td.col-2
+          - if account.currency.name == "JPY"
+            .float-right = number_to_currency(account.amount)
+          - else
+            .float-right = number_to_currency(account.amount, format: "%u%n", unit: account.currency.symbol)
+        td.col-3
           = form_with model: @form, url: :bank_transfer, local: true do |f|
             = f.hidden_field :from_id, value: account.id
             = f.submit "選択", class: "btn btn-sm btn-primary"

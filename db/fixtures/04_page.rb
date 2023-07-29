@@ -9,7 +9,7 @@ pages = {
         { title: "定期預金", path: "/products/2/accounts/new" },
         { title: "外貨預金", path: "/currencies" },
         { title: "投資信託", path: "/products/4/accounts/new" },
-        { title: "国債", path: "/products/15/accounts/new" },
+        { title: "国債", path: "/products/5/accounts/new" },
         { title: "スピードくじ", path: "/lotteries" },
       ],
     },

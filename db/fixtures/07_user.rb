@@ -16,6 +16,7 @@ users.each_with_index do |user, id|
     s.user_id = id + 1
     s.branch_id = branch.id
     s.product_id = credit_card.id
+    s.currency_id = Currency.find_by(name: "JPY").id
   end
 
   User.seed do |s|
