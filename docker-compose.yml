@@ -1,0 +1,6 @@
+version: "3"
+services:
+  web:
+    image: tamura/moneta3
+    ports:
+      - "80:3000"
