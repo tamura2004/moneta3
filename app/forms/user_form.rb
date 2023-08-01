@@ -37,12 +37,12 @@ class UserForm
     return @card if @card
     product = Product.find_by(name: "クレジットカード")
     branch = Branch.find_by(name: "もねたカード")
-    @card = Account.new(number: credit_number, product: product, branch: branch)
+    currency = Currency.find_by(name: "JPY")
+    @card = Account.new(number: credit_number, product: product, branch: branch, currency: currency)
     if @card.save
       @card
     else
       errors.add(:credit_number, "不明なエラーです")
-      puts @card.inspect
       false
     end
   end
