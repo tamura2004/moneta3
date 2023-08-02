@@ -12,16 +12,16 @@
 #  updated_at  :datetime         not null
 #
 
-one:
-  name: MyString
-  description: MyString
+jpy:
+  name: JPY
+  description: 日本円
   rate_max: 1.5
   rate_min: 1.5
-  symbol: MyString
+  symbol: ￥
 
-two:
-  name: MyString
-  description: MyString
+usd:
+  name: USD
+  description: 米ドル
   rate_max: 1.5
   rate_min: 1.5
-  symbol: MyString
+  symbol: ＄

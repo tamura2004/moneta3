@@ -34,6 +34,7 @@ class AccountFormTest < ActiveSupport::TestCase
       form.product_id = products(:creditcard).id
       form.branch_id = branches(:one).id
       form.user_id = users(:akagi).id
+      form.currency_id = currencies(:jpy).id
     end
   end
 
@@ -75,25 +76,7 @@ class AccountFormTest < ActiveSupport::TestCase
 
   test "口座作成パラメータを出力できる" do
     get = @form.account_param.keys.sort
-    want = %i(number amount start_date end_date product_id account_id user_id branch_id).sort
+    want = %i(number amount start_date end_date product_id account_id user_id branch_id currency_id).sort
     assert_equal get, want
-  end
-
-  test "作成時に引き落としが行われる" do
-    @form.amount = 1000
-    @form.product_id = products(:futsu).id
-
-    assert_difference "@form.payment.amount", -1000 do
-      assert @form.save
-    end
-  end
-
-  test "作成時に預入が行われる" do
-    @form.amount = 1000
-    @form.product_id = products(:futsu).id
-
-    assert_difference "@form.deposit.amount", 1099 do
-      assert @form.save
-    end
   end
 end

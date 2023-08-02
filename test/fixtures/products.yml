@@ -16,7 +16,6 @@
 creditcard:
   name: クレジットカード
   rate: 15.0
-  currency: JPY
   is_debit: false
   is_credit: true
   is_fixed: false
@@ -24,7 +23,6 @@ creditcard:
 futsu:
   name: 普通預金
   rate: 9.99
-  currency: MyString
   is_debit: false
   is_credit: false
   is_fixed: false
@@ -32,7 +30,6 @@ futsu:
 lottery:
   name: スピードくじ
   rate: 9.99
-  currency: MyString
   is_debit: false
   is_credit: false
   is_fixed: false

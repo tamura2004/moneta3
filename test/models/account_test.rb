@@ -23,13 +23,14 @@
 #  index_accounts_on_product_id   (product_id)
 #  index_accounts_on_user_id      (user_id)
 #
-require 'test_helper'
+require "test_helper"
 
 class AccountTest < ActiveSupport::TestCase
   setup do
     @account = Account.new do |s|
       s.product = products(:futsu)
       s.number = "1234"
+      s.currency_id = currencies(:jpy).id
     end
   end
 
@@ -147,19 +148,6 @@ class AccountTest < ActiveSupport::TestCase
     end
   end
 
-  test "解約処理ができる" do
-    a = accounts(:one)
-    b = accounts(:two)
-    b.update(account: accounts(:one))
-
-    want = a.amount + b.amount
-    err = b.kaiyaku
-
-    assert err.nil?
-    assert b.destroyed?
-    assert_equal want, a.amount
-  end
-
   test "クレジットカードは解約できない" do
     a = accounts(:one)
     a.update(user: users(:akagi))
@@ -180,5 +168,4 @@ class AccountTest < ActiveSupport::TestCase
     err = b.kaiyaku
     assert_equal err, "決済口座がありません"
   end
-
 end

@@ -33,9 +33,11 @@ one:
   product: creditcard
   user: akagi
   amount: 1000000
+  currency: jpy
 
 two:
   number: "12345678"
   product: futsu
   user: akagi
   amount: 1000000
+  currency: jpy

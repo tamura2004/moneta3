@@ -12,7 +12,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
-require 'test_helper'
+require "test_helper"
 
 class ProductTest < ActiveSupport::TestCase
   setup do
@@ -28,11 +28,6 @@ class ProductTest < ActiveSupport::TestCase
   test "名前が必要" do
     @product.name = nil
     assert @product.invalid?
-  end
-
-  test "通貨を持てる" do
-    @product.currency = "JPY"
-    assert @product.valid?
   end
 
   test "クレジットカード区分を持てる" do
