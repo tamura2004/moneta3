@@ -91,7 +91,7 @@ end
 
 [
   "npm install n -g",
-  "n stable",
+  "n 16",
 ].each do |cmd|
   execute cmd do
     not_if "node --version | grep v12"
