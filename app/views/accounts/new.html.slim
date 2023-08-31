@@ -12,3 +12,23 @@
       = f.hidden_field :user_id
       = f.hidden_field :currency_id, value: @currency.id
       = f.submit "登録する", class: "btn btn-primary"
+    javascript:
+      document.addEventListener('DOMContentLoaded', function() {
+        const startDateInput = document.querySelector('[name="account_form[start_date]"]');
+        const endDateInput = document.querySelector('[name="account_form[end_date]"]');
+
+        startDateInput.addEventListener('change', function() {
+          if (endDateInput.value && new Date(startDateInput.value) > new Date(endDateInput.value)) {
+            alert('開始日は終了日より前でなければなりません。');
+            startDateInput.value = '';
+          }
+        });
+
+        endDateInput.addEventListener('change', function() {
+          if (startDateInput.value && new Date(endDateInput.value) < new Date(startDateInput.value)) {
+            alert('終了日は開始日より後でなければなりません。');
+            endDateInput.value = '';
+          }
+        });
+      });
+
